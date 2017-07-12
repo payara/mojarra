@@ -6,29 +6,24 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.sun.faces.test</groupId>
     <artifactId>pom</artifactId>
-    <version>2.2.14-SNAPSHOT</version>
+    <version>2.2.14.payara-p1</version>
     <packaging>pom</packaging>
     <name>Mojarra ${project.version} - Test</name>
-    <modules>
-        <module>agnostic</module>
-        <module>cluster</module>
-        <module>glassfish</module>
-        <module>groovy</module>
-        <module>javaee6</module>
-        <module>javaee6web</module>
-        <module>javaee7</module>
-        <module>performance</module>
-        <module>protocolaware</module>
-        <module>quality</module>
-        <module>selenium</module>
-        <module>servlet30</module>
-        <module>servlet31</module>
-        <module>unit</module>
-        <module>util</module>
-        <module>web-profile</module>
-        <module>weblogic</module>
-        <module>weblogic12c</module>
-    </modules>
+    
+    <repositories>
+        <repository>
+           <id>payara-patched-externals</id>
+           <name>Payara Patched Externals</name>
+           <url>https://raw.github.com/payara/Payara_PatchedProjects/master</url>
+            <releases>
+                    <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                    <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    
     <build>
         <pluginManagement>
             <plugins>
@@ -144,6 +139,28 @@
     <profiles>
         <profile>
             <id>glassfish-cargo</id>
+            
+            <modules>
+                <module>agnostic</module>
+                <module>cluster</module>
+                <module>glassfish</module>
+                <module>groovy</module>
+                <module>javaee6</module>
+                <module>javaee6web</module>
+                <module>javaee7</module>
+                <module>performance</module>
+                <module>protocolaware</module>
+                <module>quality</module>
+                <module>selenium</module>
+                <module>servlet30</module>
+                <module>servlet31</module>
+                <module>unit</module>
+                <module>util</module>
+                <module>web-profile</module>
+                <module>weblogic</module>
+                <module>weblogic12c</module>
+            </modules>
+            
             <build>
                 <plugins>
                     <plugin>
@@ -204,6 +221,28 @@
         </profile>
         <profile>
             <id>glassfish-patch</id>
+            
+            <modules>
+                <module>agnostic</module>
+                <module>cluster</module>
+                <module>glassfish</module>
+                <module>groovy</module>
+                <module>javaee6</module>
+                <module>javaee6web</module>
+                <module>javaee7</module>
+                <module>performance</module>
+                <module>protocolaware</module>
+                <module>quality</module>
+                <module>selenium</module>
+                <module>servlet30</module>
+                <module>servlet31</module>
+                <module>unit</module>
+                <module>util</module>
+                <module>web-profile</module>
+                <module>weblogic</module>
+                <module>weblogic12c</module>
+            </modules>
+            
             <build>
                 <plugins>
                     <plugin>                 
@@ -240,6 +279,28 @@
         </profile>
         <profile>
             <id>glassfish-tck</id>
+            
+            <modules>
+                <module>agnostic</module>
+                <module>cluster</module>
+                <module>glassfish</module>
+                <module>groovy</module>
+                <module>javaee6</module>
+                <module>javaee6web</module>
+                <module>javaee7</module>
+                <module>performance</module>
+                <module>protocolaware</module>
+                <module>quality</module>
+                <module>selenium</module>
+                <module>servlet30</module>
+                <module>servlet31</module>
+                <module>unit</module>
+                <module>util</module>
+                <module>web-profile</module>
+                <module>weblogic</module>
+                <module>weblogic12c</module>
+            </modules>
+            
             <build>
                 <plugins>
                     <plugin>
@@ -329,6 +390,28 @@
         </profile>
         <profile>
             <id>glassfish-unzip</id>
+            
+            <modules>
+                <module>agnostic</module>
+                <module>cluster</module>
+                <module>glassfish</module>
+                <module>groovy</module>
+                <module>javaee6</module>
+                <module>javaee6web</module>
+                <module>javaee7</module>
+                <module>performance</module>
+                <module>protocolaware</module>
+                <module>quality</module>
+                <module>selenium</module>
+                <module>servlet30</module>
+                <module>servlet31</module>
+                <module>unit</module>
+                <module>util</module>
+                <module>web-profile</module>
+                <module>weblogic</module>
+                <module>weblogic12c</module>
+            </modules>
+            
             <build>
                 <plugins>
                     <plugin>
@@ -377,6 +460,28 @@
         </profile>
         <profile>
             <id>integration</id>
+            
+            <modules>
+                <module>agnostic</module>
+                <module>cluster</module>
+                <module>glassfish</module>
+                <module>groovy</module>
+                <module>javaee6</module>
+                <module>javaee6web</module>
+                <module>javaee7</module>
+                <module>performance</module>
+                <module>protocolaware</module>
+                <module>quality</module>
+                <module>selenium</module>
+                <module>servlet30</module>
+                <module>servlet31</module>
+                <module>unit</module>
+                <module>util</module>
+                <module>web-profile</module>
+                <module>weblogic</module>
+                <module>weblogic12c</module>
+            </modules>
+            
             <build>
                 <plugins>
                     <plugin>
@@ -429,6 +534,28 @@
         </profile>
         <profile>
             <id>integration-virtual</id>
+            
+            <modules>
+                <module>agnostic</module>
+                <module>cluster</module>
+                <module>glassfish</module>
+                <module>groovy</module>
+                <module>javaee6</module>
+                <module>javaee6web</module>
+                <module>javaee7</module>
+                <module>performance</module>
+                <module>protocolaware</module>
+                <module>quality</module>
+                <module>selenium</module>
+                <module>servlet30</module>
+                <module>servlet31</module>
+                <module>unit</module>
+                <module>util</module>
+                <module>web-profile</module>
+                <module>weblogic</module>
+                <module>weblogic12c</module>
+            </modules>
+            
             <build>
                 <plugins>
                     <plugin>
@@ -500,6 +627,28 @@
         </profile>
         <profile>
             <id>patch</id>
+            
+            <modules>
+                <module>agnostic</module>
+                <module>cluster</module>
+                <module>glassfish</module>
+                <module>groovy</module>
+                <module>javaee6</module>
+                <module>javaee6web</module>
+                <module>javaee7</module>
+                <module>performance</module>
+                <module>protocolaware</module>
+                <module>quality</module>
+                <module>selenium</module>
+                <module>servlet30</module>
+                <module>servlet31</module>
+                <module>unit</module>
+                <module>util</module>
+                <module>web-profile</module>
+                <module>weblogic</module>
+                <module>weblogic12c</module>
+            </modules>
+            
             <build>
                 <plugins>
                     <plugin>                 
@@ -533,6 +682,28 @@
         </profile>
         <profile>
             <id>tomcat-cargo</id>
+            
+            <modules>
+                <module>agnostic</module>
+                <module>cluster</module>
+                <module>glassfish</module>
+                <module>groovy</module>
+                <module>javaee6</module>
+                <module>javaee6web</module>
+                <module>javaee7</module>
+                <module>performance</module>
+                <module>protocolaware</module>
+                <module>quality</module>
+                <module>selenium</module>
+                <module>servlet30</module>
+                <module>servlet31</module>
+                <module>unit</module>
+                <module>util</module>
+                <module>web-profile</module>
+                <module>weblogic</module>
+                <module>weblogic12c</module>
+            </modules>
+            
             <build>
                 <plugins>
                     <plugin>                 
@@ -650,6 +821,28 @@
         </profile>
         <profile>
             <id>weblogic-cargo</id>
+            
+            <modules>
+                <module>agnostic</module>
+                <module>cluster</module>
+                <module>glassfish</module>
+                <module>groovy</module>
+                <module>javaee6</module>
+                <module>javaee6web</module>
+                <module>javaee7</module>
+                <module>performance</module>
+                <module>protocolaware</module>
+                <module>quality</module>
+                <module>selenium</module>
+                <module>servlet30</module>
+                <module>servlet31</module>
+                <module>unit</module>
+                <module>util</module>
+                <module>web-profile</module>
+                <module>weblogic</module>
+                <module>weblogic12c</module>
+            </modules>
+            
             <build>
                 <plugins>
                     <plugin>
@@ -697,6 +890,28 @@
         </profile>
         <profile>
             <id>weblogic-patch</id>
+            
+            <modules>
+                <module>agnostic</module>
+                <module>cluster</module>
+                <module>glassfish</module>
+                <module>groovy</module>
+                <module>javaee6</module>
+                <module>javaee6web</module>
+                <module>javaee7</module>
+                <module>performance</module>
+                <module>protocolaware</module>
+                <module>quality</module>
+                <module>selenium</module>
+                <module>servlet30</module>
+                <module>servlet31</module>
+                <module>unit</module>
+                <module>util</module>
+                <module>web-profile</module>
+                <module>weblogic</module>
+                <module>weblogic12c</module>
+            </modules>
+            
             <build>
                 <plugins>
                     <plugin>                 
@@ -776,6 +991,28 @@
         </profile>
         <profile>
             <id>weblogic-start</id>
+            
+            <modules>
+                <module>agnostic</module>
+                <module>cluster</module>
+                <module>glassfish</module>
+                <module>groovy</module>
+                <module>javaee6</module>
+                <module>javaee6web</module>
+                <module>javaee7</module>
+                <module>performance</module>
+                <module>protocolaware</module>
+                <module>quality</module>
+                <module>selenium</module>
+                <module>servlet30</module>
+                <module>servlet31</module>
+                <module>unit</module>
+                <module>util</module>
+                <module>web-profile</module>
+                <module>weblogic</module>
+                <module>weblogic12c</module>
+            </modules>
+            
             <build>
                 <plugins>
                     <plugin>
@@ -822,6 +1059,28 @@ startServer(
         </profile>
         <profile>
             <id>weblogic-unzip</id>
+            
+            <modules>
+                <module>agnostic</module>
+                <module>cluster</module>
+                <module>glassfish</module>
+                <module>groovy</module>
+                <module>javaee6</module>
+                <module>javaee6web</module>
+                <module>javaee7</module>
+                <module>performance</module>
+                <module>protocolaware</module>
+                <module>quality</module>
+                <module>selenium</module>
+                <module>servlet30</module>
+                <module>servlet31</module>
+                <module>unit</module>
+                <module>util</module>
+                <module>web-profile</module>
+                <module>weblogic</module>
+                <module>weblogic12c</module>
+            </modules>
+            
             <build>
                 <plugins>
                     <plugin>
@@ -865,6 +1124,132 @@ startServer(
                 <weblogic.unzip.zipFile>C:/Downloads/Weblogic12.1.2.zip</weblogic.unzip.zipFile>
             </properties>
         </profile>
+        <profile>
+            <id>payara-cargo</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.cargo</groupId>
+                        <artifactId>cargo-maven2-plugin</artifactId>
+                        <inherited>true</inherited>
+                        <executions>
+                            <execution>
+                                <id>start-container</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>start</goal>
+                                </goals>
+                                <configuration>
+                                    <timeout>2400000</timeout>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>stop-container</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
+                                <configuration>
+                                    <timeout>2400000</timeout>
+                                </configuration>
+                            </execution>
+                        </executions>                        
+                        <configuration>
+                            <container>
+                                <containerId>${glassfish.cargo.id}</containerId>
+                                <type>installed</type>
+                                <home>${glassfish.cargo.home}</home>
+                                <timeout>2400000</timeout>
+                            </container>
+                            <configuration>
+                                <type>${glassfish.cargo.configType}</type>
+                                <home>${glassfish.cargo.config}</home>
+                                <properties>
+                                    <cargo.hostname>${glassfish.cargo.serverName}</cargo.hostname>
+                                    <cargo.servlet.port>${glassfish.cargo.servletPort}</cargo.servlet.port>
+                                    <cargo.glassfish.domain.name>${glassfish.cargo.domain}</cargo.glassfish.domain.name>
+                                </properties>
+                            </configuration>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            <properties>
+                <glassfish.cargo.home>C:/Glassfish4.0</glassfish.cargo.home>
+                <glassfish.cargo.configType>standalone</glassfish.cargo.configType>
+                <glassfish.cargo.config>${glassfish.cargo.home}/glassfish/domains</glassfish.cargo.config>
+                <glassfish.cargo.domain>test-domain</glassfish.cargo.domain>
+                <glassfish.cargo.id>glassfish4x</glassfish.cargo.id>
+                <glassfish.cargo.serverName>localhost</glassfish.cargo.serverName>
+                <glassfish.cargo.servletPort>8080</glassfish.cargo.servletPort>
+            </properties>
+        </profile>
+        <profile>
+            <id>integration-custom-modules</id>
+            
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <inherited>true</inherited>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <integration.serverName>${integration.serverName}</integration.serverName>
+                                <integration.serverPort>${integration.serverPort}</integration.serverPort>
+                                <integration.serverProtocol>${integration.serverProtocol}</integration.serverProtocol>
+                                <integration.url>${integration.protocol}://${integration.serverName}:${integration.serverPort}/${project.build.finalName}/</integration.url>
+                                <jsf.version>${jsf.version}</jsf.version>
+                                <project.build.finalName>${project.build.finalName}</project.build.finalName>
+                                <project.build.sourceEncoding>${project.build.sourceEncoding}</project.build.sourceEncoding>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>                
+                </plugins>
+            </build>
+            <properties>
+                <integration.protocol>http</integration.protocol>
+                <integration.serverName>localhost</integration.serverName>
+                <integration.serverPort>8080</integration.serverPort>
+            </properties>
+            <reporting>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-report-plugin</artifactId>
+                        <reportSets>
+                            <reportSet>
+                                <id>integration-tests</id>
+                                <reports>
+                                    <report>failsafe-report-only</report>
+                                </reports>
+                            </reportSet>
+                        </reportSets>
+                    </plugin>
+                </plugins>
+            </reporting>
+        </profile>
+        <profile>
+            <id>stable-tests</id>
+            <modules>
+                <module>javaee6</module>
+                <module>javaee6web</module>
+                <module>javaee7</module>
+                <module>servlet30</module>
+                <module>servlet31</module>
+                <module>util</module>
+            </modules>
+        </profile>
+        
+        
     </profiles>
     <properties>
         <jsf.artifactId>javax.faces</jsf.artifactId>
