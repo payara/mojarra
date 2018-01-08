@@ -1,13 +1,6 @@
 target/
 api/src/main/java/
 api/src/main/resources/
-impl/bnd.bnd
-impl/src/main/doc/
-impl/src/main/resources/META-INF/LICENSE.txt
-impl/src/main/resources/META-INF/facelet-dev-debug.xml
-impl/src/main/resources/META-INF/facelet-dev-error.xml
-impl/src/main/resources/com/
-impl/src/main/resources/javax/
 impl/yuicompressor.jar
 changebundle.txt
 dependencies
@@ -20,7 +13,6 @@ target/
 /dist/
 /dependencies/
 /jsf-demo/dist/
-/jsf-api/build/
 /jsf-ri/build/
 /jsf-tools/build/
 /jsf-tools/target/
@@ -46,9 +38,4 @@ nbactions.xml
 *.DS_Store
 .idea/
 Mojarra.iml
-/impl/src/main/doc/
-/impl/src/main/resources/com/
-/impl/src/main/resources/javax/
-/impl/src/main/resources/META-INF/facelet*.xml
-/impl/src/main/resources/META-INF/LICENSE.txt
-/impl/src/main/resources/META-INF/error-include.xhtml
+*~

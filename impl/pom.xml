@@ -67,10 +67,6 @@
     
     <name>Mojarra ${project.version}</name>
     
-    <prerequisites>
-        <maven>3.1.1</maven>
-    </prerequisites>
-    
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -83,186 +79,8 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.7</version>
+                <version>1.8</version>
                 <executions>
-                    
-                    
-                    <!-- ###  C L E A N  ### -->
-                    
-                    <execution>
-                        <id>clean</id>
-                        <phase>clean</phase>
-                        <configuration>
-                            <target>
-                                <!--
-                                
-                                    Once migration is completely done we should not have
-                                    to delete any src/main directory anymore
-                                
-                                -->
-                                <delete dir="src/main/resources/com"/>
-                                <delete dir="src/main/resources/javax"/>
-                                <delete>
-                                    <fileset dir="src/main/resources/META-INF" 
-                                             excludes="mojarra-jsf-api-probe-provider.xml,jsf_core.tld,mojarra_ext.taglib.xml,mojarra_ext.tld,error-include.xhtml"
-                                             includes="*"/>
-                                </delete>
-                                <delete dir="src/main/doc"/>
-                                <!--
-                                
-                                    Once migration is completely we should not need to
-                                    delete the bnd.bnd file anymore.
-                                
-                                -->
-                                <delete file="bnd.bnd"/>
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                    
-                    
-                    <!-- ###  I N I T I A L I Z E  ### -->
-                    
-                    <execution>
-                        <id>initialize</id>
-                        <phase>initialize</phase>
-                        <configuration>
-                            <target>
-                               
-                                <!--
-                                
-                                    Once migration is completely done this should disappear
-                                
-                                -->
-                                <property name="jsf-api-dir" value="${project.build.directory}/../../jsf-api"/>
-                                <property name="jsf-ri-dir" value="${project.build.directory}/../../jsf-ri"/>
-                                <property name="jsf-tools-dir" value="${project.build.directory}/../../jsf-tools"/>
-                                
-                                <!--
-
-                                    Copy jsf-api resources into src/main/resources
-                                                                
-                                -->
-                                <copy todir="src/main/resources" includeEmptyDirs="false">
-                                    <fileset dir="${jsf-api-dir}/src/main/java">
-                                        <exclude name="**/*.java"/>
-                                        <exclude name="**/*.html"/>
-                                        <exclude name="**/*.jpg"/>
-                                    </fileset>
-                                </copy>
-                                
-                                <!--
-                                
-                                    Copy jsf-ri resource into src/main/resources
-                                    
-                                -->
-                                <copy todir="src/main/resources" overwrite="true">
-                                    <fileset dir="${jsf-ri-dir}/src/main/resources" 
-                                             includes="**/*.properties,**/*.js,**/*.xsd"
-                                             excludes="**/LogStrings*.properties"/>
-                                </copy>
-                                
-                                <!--
-                                
-                                    Copy *.taglib.xml to src/main/resources
-                                
-                                -->
-                                <copy todir="src/main/resources/com/sun/faces/metadata/taglib">
-                                    <fileset dir="${jsf-ri-dir}/conf/share">
-                                        <include name="*.taglib.xml" /> 
-                                    </fileset>
-                                </copy>
-                                                                
-                                <!--
-                                
-                                    Copy other static resources to src/main/resources
-                                    
-                                -->
-                                <copy todir="src/main/resources/META-INF">
-                                    <fileset dir="${jsf-ri-dir}/conf/share">
-                                        <include name="facelet-dev*.xml"/>
-                                    </fileset>
-                                </copy>
-                                <copy file="${jsf-ri-dir}/conf/xslt/jsf1_0-1_1toSchema.xsl"
-                                    toDir="src/main/resources/com/sun/faces"/>
-                                <copy file="${jsf-ri-dir}/conf/xslt/facelets1_0-2_0toSchema.xsl"
-                                    toDir="src/main/resources/com/sun/faces"/>
-                                <copy todir="src/main/resources/com/sun/faces">
-                                    <fileset dir="${jsf-api-dir}/doc">
-                                        <include name="*.dtd"/>
-                                        <include name="standard-html-renderkit.xml"/>
-                                        <include name="*.xsd"/>
-                                    </fileset>
-                                </copy>
-                                <copy todir="src/main/resources/com/sun/faces/xhtml">
-                                    <fileset dir="${jsf-ri-dir}/conf/share/xhtml">
-                                        <include name="*.dtd"/>
-                                        <include name="*.ent"/>
-                                    </fileset>
-                                </copy>
-                                <copy file="${jsf-ri-dir}/resources/empty-faces-config.xml"
-                                    todir="src/main/resources/com/sun/faces" />
-                                
-                                <!--
-                                
-                                    Copy LICENSE.txt from main project directory
-                                
-                                -->
-                                <copy todir="src/main/resources/META-INF" 
-                                    file="${jsf-api-dir}/../legal/jsf-cddl/LICENSE.txt" />
-                                
-                                <!--
-                                
-                                    Copy and generate BND configuration
-                                    
-                                -->
-                                <copy file="${jsf-ri-dir}/mojarra-jsf-impl.bnd" 
-                                      tofile="${project.build.directory}/tmp.bnd"/>
-                                <replace file="${project.build.directory}/tmp.bnd"
-                                    token="@spec.version@"
-                                    value="2.3"/>
-                                <replace file="${project.build.directory}/tmp.bnd"
-                                    token="@impl.name@"
-                                    value="Mojarra"/>
-                                <replace file="${project.build.directory}/tmp.bnd"
-                                    token="@impl.version@"
-                                    value="${project.version}"/>
-                                <replace file="${project.build.directory}/tmp.bnd"
-                                    token="@full.impl.version@"
-                                    value="${project.version}"/>
-                                <replace file="${project.build.directory}/tmp.bnd"
-                                    token="@osgi.version@"
-                                    value="${project.version}"/>
-                                <replace file="${project.build.directory}/tmp.bnd"
-                                    token="@extension.name@"
-                                    value="javax.faces"/>
-                                <copy tofile="${project.project.build.directory}/../bnd.bnd" 
-                                      file="${project.build.directory}/tmp.bnd"/>
-                                
-                                <!--
-                                
-                                    Copy the API doc directory.
-                                    
-                                -->
-                                <copy todir="src/main/doc">
-                                    <fileset dir="${jsf-api-dir}/doc"/>
-                                </copy>
-                                
-                                <!--
-                                
-                                    Copy standard-html-renderkit-impl.xml
-                                    
-                                -->
-                                <copy todir="src/main/doc" 
-                                      file="${jsf-ri-dir}/src/main/resources/com/sun/faces/standard-html-renderkit-impl.xml"/>
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
                     
                     
                     <!-- ###  G E N E R A T E   S O U R C E S  ### -->
@@ -272,9 +90,7 @@
                         <phase>generate-sources</phase>
                         <configuration>
                             <target>
-                                <property name="jsf-ri-dir" value="${project.build.directory}/../../jsf-ri"/>
                                 <property name="jsf-tools-dir" value="${project.build.directory}/../../jsf-tools"/>
-                                
                                 
                                 
                                 <echo message="Generating source code files" />
@@ -306,8 +122,9 @@
                                         <!-- 
                                             Copy a lot of -props.xml files to -attrs.xml.
                                             
-                                            For some reason, source files are kept as -props.xml, but some
-                                            (and curiously not all) are xi included as -attrs.xml)
+                                            This is done because by convention the properties of
+                                            components are often mirrored as attributes on their
+                                            associated default renderers.
                                          -->
                                         <copy todir="src/main/doc" overwrite="true">
                                             <mapper type="glob"
@@ -360,6 +177,10 @@
 <!-- DO NOT EDIT     DO NOT EDIT    DO NOT EDIT    DO NOT EDIT    DO NOT EDIT -->]]>
                                             </replacevalue>
                                         </replace>
+                                        <replace file="src/main/doc/standard-html-renderkit.xml">
+                                            <replacetoken><![CDATA[<component xmlns:xi="http://www.w3.org/2001/XInclude">]]></replacetoken>
+                                            <replacevalue><![CDATA[<component>]]></replacevalue>
+                                        </replace>
                                         <delete>
                                             <fileset dir="src/main/doc" includes="*-attrs.xml"/>
                                         </delete>
@@ -369,6 +190,7 @@
                                 </if>
                           
                                     
+                               
                                
                                 <!--
                                 
@@ -380,12 +202,16 @@
                                     This is used in the generating of several UI components based on their taglib descriptions
                                 
                                     -->
-                                <copy todir="${jsf-tools-dir}/build/classes">
-                                    <fileset dir="${jsf-ri-dir}/src/main/resources" includes="**/LogStrings.properties"/>
+                                <echo message="Copying LogStrings.properties" />
+                                <copy todir="${jsf-tools-dir}/build/classes/com/sun/faces" verbose="true">
+                                    <fileset dir="src/main/resources/com/sun/faces" includes="LogStrings.properties"/>
                                 </copy>
-                                <copy todir="${jsf-tools-dir}/build/classes/com/sun/faces" flatten="true">
+                                
+                                <echo message="Copying *.dtd,*.xsd" />
+                                <copy todir="${jsf-tools-dir}/build/classes/com/sun/faces" flatten="true" verbose="true">
                                     <fileset dir="src/main/resources/com/sun/faces" includes="*.dtd,*.xsd"/>
                                 </copy>
+                                
                                 <taskdef name="generateAttrManager" classname="com.sun.faces.ant.AttributeManagerGenTask">
                                     <classpath>
                                         <pathelement location="${jsf-tools-dir}/target/jsf-tools-${project.version}.jar"/>
@@ -401,6 +227,7 @@
                                         <path refid="maven.plugin.classpath"/>
                                     </classpath>
                                 </generateAttrManager>
+                                
                                 <copy todir="${project.build.directory}/generated-sources/antrun">
                                     <fileset dir="build/generate"/>
                                 </copy>
@@ -413,20 +240,18 @@
                                     Generate com.sun.faces.renderkit.html_basic sources
                                     
                                     -->
-                                <copy todir="${jsf-tools-dir}/build/classes">
-                                    <fileset dir="${jsf-ri-dir}/src/main/resources"
-                                        includes="**/LogStrings.properties"/>
+                                <copy todir="${jsf-tools-dir}/build/classes/com/sun/faces" verbose="true">
+                                    <fileset dir="src/main/resources/com/sun/faces" includes="LogStrings.properties"/>
                                 </copy>
-                                <copy todir="${jsf-tools-dir}/build/classes/com/sun/faces"
-                                    flatten="true">
-                                    <fileset dir="src/main/resources/com/sun/faces"
-                                        includes="*.dtd,*.xsd"/>
+                                <copy todir="${jsf-tools-dir}/build/classes/com/sun/faces" flatten="true">
+                                    <fileset dir="src/main/resources/com/sun/faces" includes="*.dtd,*.xsd"/>
                                 </copy>
                                 <copy todir="build">
                                     <fileset dir="${jsf-tools-dir}/conf">
                                         <include name="TAG-*"/>
                                     </fileset>
                                 </copy>
+                                
                                 <taskdef name="generateTaglib"
                                          classname="com.sun.faces.ant.TaglibGenTask">
                                     <classpath>
@@ -443,6 +268,7 @@
                                         <path refid="maven.plugin.classpath"/>
                                     </classpath>
                                 </generateTaglib>
+                                
                                 <copy todir="${project.build.directory}/generated-sources/antrun/com">
                                     <fileset dir="build/generate/com"/>
                                 </copy>
@@ -453,16 +279,14 @@
                                 
                                     Generate API components
                                     
-                                    -->
-                                <copy todir="${jsf-tools-dir}/build/classes">
-                                    <fileset dir="${jsf-ri-dir}/src/main/resources"
-                                        includes="**/LogStrings.properties"/>
+                                -->
+                                <copy todir="${jsf-tools-dir}/build/classes/com/sun/faces" verbose="true">
+                                    <fileset dir="src/main/resources/com/sun/faces" includes="LogStrings.properties"/>
                                 </copy>
-                                <copy todir="${jsf-tools-dir}/build/classes/com/sun/faces"
-                                    flatten="true">
-                                    <fileset dir="src/main/resources/com/sun/faces"
-                                        includes="*.dtd,*.xsd"/>
+                                <copy todir="${jsf-tools-dir}/build/classes/com/sun/faces" flatten="true">
+                                    <fileset dir="src/main/resources/com/sun/faces" includes="*.dtd,*.xsd"/>
                                 </copy>
+                                
                                 <taskdef name="generateComponents"
                                     classname="com.sun.faces.ant.ComponentGenTask">
                                     <classpath>
@@ -479,6 +303,7 @@
                                         <path refid="maven.plugin.classpath"/>
                                     </classpath>
                                 </generateComponents>
+                                
                                 <copy todir="${project.build.directory}/generated-sources/antrun/javax">
                                     <fileset dir="build/generate/javax"/>
                                 </copy>
@@ -500,8 +325,6 @@
                         <phase>generate-resources</phase>
                         <configuration>
                             <target>
-                                <property name="jsf-api-dir" value="${project.build.directory}/../../jsf-api"/>
-                                <property name="jsf-ri-dir" value="${project.build.directory}/../../jsf-ri"/>
                                 <property name="jsf-tools-dir" value="${project.build.directory}/../../jsf-tools"/>
                                 
                                 <!--
@@ -510,15 +333,15 @@
                                 
                                 -->
                                 <mkdir dir="${project.build.directory}/generated-resources/antrun"/>
-                                <copy todir="${project.build.directory}/generated-resources/antrun" overwrite="true">
-                                    <fileset dir="${jsf-ri-dir}/src/main/resources"
-                                             includes="**/LogStrings*.properties"/>
+                                <copy todir="${project.build.directory}/generated-resources/antrun/com/sun/faces" overwrite="true" verbose="true">
+                                    <fileset dir="src/main/resources/com/sun/faces" includes="LogStrings*.properties"/>
                                 </copy>
                                 <replace dir="${project.build.directory}/generated-resources/antrun"
                                     token="|version.string|"
                                     value="${project.version}">
                                     <include name="**/LogStrings*.properties"/>
                                 </replace>
+                                
                                 
                                 <!--
                                 
@@ -530,17 +353,16 @@
                                         <include name="TAG-*"/>
                                     </fileset>
                                 </copy>
-                                <copy todir="${jsf-tools-dir}/build/classes">
-                                    <fileset dir="${jsf-ri-dir}/src/main/resources"
-                                             includes="**/LogStrings.properties"/>
+                                
+                                <copy todir="${jsf-tools-dir}/build/classes/com/sun/faces" verbose="true">
+                                    <fileset dir="src/main/resources/com/sun/faces" includes="LogStrings.properties"/>
                                 </copy>
-                                <copy todir="${jsf-tools-dir}/build/classes/com/sun/faces"
-                                      flatten="true">
-                                    <fileset dir="${jsf-api-dir}/doc"
-                                             includes="*.dtd,*.xsd"/>
+                                
+                                <copy todir="${jsf-tools-dir}/build/classes/com/sun/faces" flatten="true">
+                                    <fileset dir="src/main/doc" includes="*.dtd,*.xsd" />
                                 </copy>
-                                <taskdef name="generateTaglib"
-                                         classname="com.sun.faces.ant.TaglibGenTask">
+                                
+                                <taskdef name="generateTaglib" classname="com.sun.faces.ant.TaglibGenTask">
                                     <classpath>
                                         <pathelement location="${jsf-tools-dir}/target/jsf-tools-${project.version}.jar"/>
                                     </classpath>
@@ -555,10 +377,13 @@
                                         <path refid="maven.plugin.classpath"/>
                                     </classpath>
                                 </generateTaglib>
+                                
                                 <copy file="build/generate/conf/share/html_basic.tld"
                                       toDir="${project.build.directory}/generated-resources/antrun/META-INF"/>
+                                      
                                 <delete dir="build"/>
                                 <delete dir="${jsf-tools-dir}/build"/>
+                                
                                 
                                 <!--
                                 
@@ -578,17 +403,6 @@
                                 <java jar="yuicompressor.jar" fork="true" failonerror="true"
                                     args="-o ${project.build.directory}/generated-resources/antrun/META-INF/resources/javax.faces/jsf.js ${project.build.directory}/generated-resources/antrun/META-INF/resources/javax.faces/jsf-uncompressed.js"/>
                                 
-                                <!--
-                                
-                                    Unzip injectionproviders.jar
-                                
-                                -->
-                                <unzip src="${jsf-api-dir}/../lib/injectionproviders.jar"
-                                    dest="${project.build.directory}/generated-resources/antrun">
-                                    <patternset>
-                                        <exclude name="META-INF/MANIFEST.MF" />
-                                    </patternset>
-                                </unzip>
                                 
                                 <!--
                                 
@@ -597,7 +411,7 @@
                                 -->
                                 <xslt in="src/main/resources/com/sun/faces/standard-html-renderkit.xml" 
                                       out="merged.xml"
-                                      style="${jsf-ri-dir}/conf/xslt/merge-config.xsl">
+                                      style="${jsf-tools-dir}/src/main/xsl/merge-config.xsl">
                                 </xslt>
                                 <replace file="${basedir}/merged.xml">
                                     <replacetoken><![CDATA[xmlns:jsf="http://xmlns.jcp.org/xml/ns/javaee"]]></replacetoken>
@@ -609,7 +423,7 @@
                                 </replace>
                                 <xslt in="${basedir}/merged.xml"
                                       out="${project.build.directory}/generated-resources/antrun/com/sun/faces/jsf-ri-runtime.xml"
-                                      style="${jsf-ri-dir}/conf/xslt/prune-tool-data.xsl">
+                                      style="${jsf-tools-dir}/src/main/xsl/prune-tool-data.xsl">
                                 </xslt>
                                 <replace file="${project.build.directory}/generated-resources/antrun/com/sun/faces/jsf-ri-runtime.xml">
                                     <replacetoken><![CDATA[xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"]]></replacetoken>
@@ -635,7 +449,8 @@
                         </goals>
                     </execution>
                 </executions>
-                                
+                
+                <!-- Ant plug-in dependencies -->
                 <dependencies>
                     <dependency>
                         <groupId>ant-contrib</groupId>
@@ -666,111 +481,11 @@
                 </dependencies>
             </plugin>
             
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.7.0</version>
-                
-                <executions>
-                    <execution>
-                        <id>process-annotations</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                        <configuration>
-                            <annotationProcessors>com.sun.faces.generate.PreParseFacesConfigProcessor</annotationProcessors>
-                            <generatedSourcesDirectory>${project.build.directory}/generated-sources/antrun</generatedSourcesDirectory>
-                            <proc>only</proc>
-                        </configuration>
-                    </execution>
-                    
-                    <execution>
-                        <id>default-compile</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                        
-                        <configuration>
-                            <proc>none</proc>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            
-            <!-- Tell Maven we want a Javadoc jar -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.3</version>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <configuration>
-                            <excludePackageNames>com</excludePackageNames>
-                        </configuration>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.2</version>
-                <configuration>
-                    <targetJdk>1.8</targetJdk>
-                    <excludes>
-                        <exclude>com/sun/faces/taglib/html_basic/**/*.java</exclude>
-                        <exclude>javax/faces/component/html/**/*.java</exclude>
-                    </excludes>
-                    <rulesets>
-                        <ruleset>${project.build.directory}/../src/main/pmd/ruleset.xml</ruleset>
-                    </rulesets>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>net.sourceforge.pmd</groupId>
-                        <artifactId>pmd</artifactId>
-                        <version>5.1.2</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-                 
-            <!-- Tell Maven we want a source jar -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>2.4</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            
-            <!-- Add the OSGi generated MANIFEST.MF to the jar -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.6</version>
-                <configuration>
-                    <archive>
-                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
-                    </archive>
-                </configuration>
-            </plugin>
-            
+            <!-- Adds the paths where the source and resources generated above was stored -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <version>1.9.1</version>
+                <version>3.0.0</version>
                 <executions>
                     <execution>
                         <id>generate-sources</id>
@@ -801,21 +516,172 @@
                 </executions>
             </plugin>
             
-            <!-- This plugin is reponsible for packaging artifacts as OSGi bundles.  
-                 It effectively puts a MANIFEST.MF in the jar artifact that is understood by OSGi.
-            -->
+            
+            
+            <!-- ###  C O M P I L E  ### --> 
+            
             <plugin>
-                <groupId>biz.aQute.bnd</groupId>
-                <artifactId>bnd-maven-plugin</artifactId>
-                <version>2.4.1</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                
+                <executions>
+                    
+                    <!-- Process annotation - generate code based on them  -->
+                    <execution>
+                        <id>process-annotations</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <configuration>
+                            <annotationProcessors>com.sun.faces.generate.PreParseFacesConfigProcessor</annotationProcessors>
+                            <generatedSourcesDirectory>${project.build.directory}/generated-sources/antrun</generatedSourcesDirectory>
+                            <proc>only</proc>
+                        </configuration>
+                    </execution>
+                    
+                    <!-- Compile all Java code, including the code generated above -->
+                    <execution>
+                        <id>default-compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        
+                        <configuration>
+                            <proc>none</proc>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            
+            <!-- ###  C R E A T E    J A V A D O C   ### --> 
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.0.0</version>
                 <executions>
                     <execution>
+                        <id>attach-javadocs</id>
+                        <configuration>
+                            <excludePackageNames>com</excludePackageNames>
+                        </configuration>
                         <goals>
-                            <goal>bnd-process</goal>
+                            <goal>jar</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
+          
+                 
+            <!-- ###  C R E A T E    S O U R C E  ### --> 
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <!-- Generate the META-INF/MANIFEST.MF file for OSGi use -->
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>3.4.0</version>
+                <extensions>true</extensions>
+                <executions>
+                    <execution>
+                        <id>bundle</id>
+                        <goals>
+                            <goal>bundle</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <instructions>
+                    
+                        <Bundle-SymbolicName>org.glassfish.javax.faces</Bundle-SymbolicName>
+                        <Bundle-Version>${project.version}</Bundle-Version>
+                        <Bundle-Name>Mojarra JSF Implementation ${project.version}</Bundle-Name>
+                        <Bundle-Description>Mojarra JSF Implementation (javax.faces/2.3) ${project.version}</Bundle-Description>                        
+                        
+                        <Specification-Title>JavaServer Faces</Specification-Title>
+                        <Specification-Version>2.3</Specification-Version>
+                        
+                        <Implementation-Title>Mojarra</Implementation-Title> 
+                        <Implementation-Version>${project.version}</Implementation-Version>
+                        <Implementation-Vendor>Oracle America, Inc.</Implementation-Vendor> 
+                        <Implementation-Vendor-Id>com.sun</Implementation-Vendor-Id>
+                        
+                        <!--  
+                        <Include-Resource>META-INF=build/classes/META-INF,build/classes</Include-Resource> 
+                        -->
+                        <Extension-Name>javax.faces</Extension-Name>
+                        
+                        <Export-Package>
+                            javax.faces.*;version=2.3,
+                            com.sun.faces.*;version=2.3
+                        </Export-Package>
+                        
+                        <Import-Package>
+                            javax.faces.*,
+                            com.sun.faces.*,
+                            javax.servlet.annotation.*;resolution:=optional,
+                            javax.servlet.*,javax.el.*,javax.inject.*,javax.enterprise.inject.*,javax.enterprise.util.*,javax.enterprise.context.*,javax.annotation.*,javax.crypto.*,
+                            javax.websocket.*;resolution:=optional, 
+                            javax.json.*;resolution:=optional, 
+                            javax.validation.*;resolution:=optional, 
+                            javax.enterprise.event;resolution:=optional, 
+                            javax.ejb.*;resolution:=optional, 
+                            javax.persistence.*;resolution:=optional,
+                            javax.xml.*,org.w3c.dom.*, 
+                            com.sun.enterprise.*;resolution:=optional, 
+                            org.mortbay.jetty.annotations;resolution:=optional, 
+                            org.mortbay.jetty.plus.annotation;resolution:=optional, 
+                            org.apache.*;resolution:=optional, 
+                            org.jboss.weld.*;resolution:=optional, 
+                            org.xml.sax.*,javax.naming.*
+                        </Import-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+            
+            
+            <!-- ###  V A L I D A T I O N  ### --> 
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.2</version>
+                <configuration>
+                    <targetJdk>1.8</targetJdk>
+                    <excludes>
+                        <exclude>com/sun/faces/taglib/html_basic/**/*.java</exclude>
+                        <exclude>javax/faces/component/html/**/*.java</exclude>
+                    </excludes>
+                    <rulesets>
+                        <ruleset>${project.build.directory}/../src/main/pmd/ruleset.xml</ruleset>
+                    </rulesets>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.sourceforge.pmd</groupId>
+                        <artifactId>pmd</artifactId>
+                        <version>5.1.2</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>clirr-maven-plugin</artifactId>
@@ -828,6 +694,7 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
@@ -863,6 +730,7 @@
                     </validationSets>
                 </configuration>
             </plugin>
+            
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -886,25 +754,33 @@
         </plugins>
     </build>
     
+    
+    <!-- ###  D E P E N D E N C I E S  ### --> 
+    
     <dependencies>
+        <!-- Java EE Dependencies -->
+        
+        <!-- Servlet 4 dependency overriding Java EE 7 main dependency -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>4.0.0</version>
             <scope>provided</scope>
         </dependency>
-        
+
+        <!-- Expression Language 3.0.1 overriding Java EE 7 main dependency  -->
         <dependency>
-                <groupId>javax.el</groupId>
-                <artifactId>javax.el-api</artifactId>
-                <version>3.0.1-b04</version>
-            </dependency>
-            <dependency>
-                <groupId>org.glassfish</groupId>
-                <artifactId>javax.el</artifactId>
-                <version>3.0.1-b04</version>
-            </dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>javax.el-api</artifactId>
+            <version>3.0.1-b04</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.el</artifactId>
+            <version>3.0.1-b04</version>
+        </dependency>
     
+        <!-- The main dependency against which Mojarra 2.3 is created: Java EE 7 -->
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
@@ -918,6 +794,37 @@
             <version>2.4.0-m01-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+        
+        <!-- 
+            For the vendor SPI implementations shipped with Mojarra.
+            See package com.sun.faces.vendor
+            TODO: Is this really needed still? These are extremely old
+         -->
+         
+         <!-- Jetty 6 -->
+        <dependency>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>jetty-plus</artifactId>
+            <version>6.1.26</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>jetty-annotations</artifactId>
+            <version>6.1.26</version>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- Tomcat 6 -->
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>catalina</artifactId>
+            <version>6.0.51</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        
+        <!-- TEST DEPENDENCIES -->
         
         <dependency>
             <groupId>org.glassfish.web</groupId>
@@ -946,12 +853,14 @@
             <version>1.4.11</version>
             <scope>test</scope>
         </dependency>
+        
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
             <version>1.8.3</version>
             <scope>test</scope>
         </dependency>
+        
         <dependency>
             <groupId>commons-digester</groupId>
             <artifactId>commons-digester</artifactId>
@@ -1032,8 +941,5 @@
             </plugin>
         </plugins>
     </reporting>
-    <scm>
-        <url>http://java.net/projects/mojarra/sources</url>
-        <connection>scm:git:git://java.net/mojarra~git</connection>
-    </scm>
+    
 </project>

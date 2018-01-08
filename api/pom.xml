@@ -66,7 +66,6 @@
                         <phase>prepare-package</phase>
                         <configuration>
                             <target>
-                                <property name="jsf-ri-dir" value="${project.build.directory}/../../jsf-ri"/>
                                 <property name="jsf-tools-dir" value="${project.build.directory}/../../jsf-tools"/>
                                 
                                 <!--
@@ -101,12 +100,13 @@
                                     Generate RenderkitDocs
                                 
                                 -->
-                                <copy todir="${jsf-tools-dir}/build/classes">
-                                    <fileset dir="${jsf-ri-dir}/src/main/resources" includes="**/LogStrings.properties"/>
+                                <copy todir="${jsf-tools-dir}/build/classes/com/sun/faces">
+                                    <fileset dir="src/main/resources/com/sun/faces" includes="LogStrings.properties"/>
                                 </copy>
                                 <copy todir="${jsf-tools-dir}/build/classes/com/sun/faces" flatten="true">
                                     <fileset dir="src/main/resources/com/sun/faces" includes="*.dtd,*.xsd"/>
                                 </copy>
+                                
                                 <taskdef name="generateRenderkitDocs" classname="com.sun.faces.ant.RenderkitDocGenTask">
                                     <classpath>
                                         <pathelement location="${jsf-tools-dir}/target/jsf-tools-${mojarra.version}.jar"/>
@@ -121,7 +121,8 @@
                                         <pathelement location="${jsf-tools-dir}/build/classes"/>
                                         <path refid="maven.plugin.classpath"/>
                                     </classpath>
-                                </generateRenderkitDocs>                                
+                                </generateRenderkitDocs>
+                                                           
                                 <copy todir="${project.build.directory}/renderkitdocs">
                                     <fileset dir="build/generate/facesdoc"/>
                                 </copy>
@@ -306,6 +307,35 @@
             <scope>provided</scope>
             <classifier>sources</classifier>
         </dependency>
+        
+         <!-- 
+            For the vendor SPI implementations shipped with Mojarra.
+            Although we don't use them and they don't end up in the API jar, they
+            still need to be compiled
+         -->
+         
+         <!-- Jetty 6 -->
+        <dependency>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>jetty-plus</artifactId>
+            <version>6.1.26</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>jetty-annotations</artifactId>
+            <version>6.1.26</version>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- Tomcat 6 -->
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>catalina</artifactId>
+            <version>6.0.51</version>
+            <scope>provided</scope>
+        </dependency>
+        
     </dependencies>
     
     <developers>
