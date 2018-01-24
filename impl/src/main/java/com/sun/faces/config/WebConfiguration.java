@@ -37,7 +37,7 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-
+// Portions Copyright [2018] Payara Foundation and/or affiliates
 package com.sun.faces.config;
 
 import static com.sun.faces.config.WebConfiguration.WebContextInitParameter.DefaultSuffix;
@@ -1408,6 +1408,9 @@ public class WebConfiguration {
             false),
         DisallowDoctypeDecl(
             "com.sun.faces.disallowDoctypeDecl",
+            false),
+    		EnableParallelInit(
+            "fish.payara.faces.enableParallelInit",
             false);
 
         private BooleanWebContextInitParameter alternate;
