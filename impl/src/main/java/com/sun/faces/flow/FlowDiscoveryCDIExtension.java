@@ -37,17 +37,16 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-
+//Portions Copyright [2018] Payara Foundation and/or affiliates
 package com.sun.faces.flow;
 
-import com.sun.faces.util.FacesLogger;
+import static java.util.logging.Level.FINE;
+
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.enterprise.event.Observes;
-import javax.enterprise.inject.spi.AnnotatedType;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.BeforeBeanDiscovery;
 import javax.enterprise.inject.spi.Extension;
@@ -55,6 +54,8 @@ import javax.enterprise.inject.spi.ProcessProducer;
 import javax.enterprise.inject.spi.Producer;
 import javax.faces.flow.Flow;
 import javax.faces.flow.builder.FlowDefinition;
+
+import com.sun.faces.util.FacesLogger;
 
 /*
  *  This is the hook into the bootstrapping of the entire feature.  
@@ -80,38 +81,33 @@ import javax.faces.flow.builder.FlowDefinition;
  *  FlowDiscoveryCDIContext.
  * 
  */
-
 public class FlowDiscoveryCDIExtension implements Extension {
 
+	// Log instance for this class
+	private static final Logger LOGGER = FacesLogger.FLOW.getLogger();
+	private final List<Producer<Flow>> flowProducers = new CopyOnWriteArrayList<>();
 
-    // Log instance for this class
-    private static final Logger LOGGER = FacesLogger.FLOW.getLogger();
-    private List<Producer<Flow>> flowProducers;
-    
-    public FlowDiscoveryCDIExtension() {
-        flowProducers = new CopyOnWriteArrayList<>();
-        
-    }
-    
-    public List<Producer<Flow>> getFlowProducers() {
-        return flowProducers;
-    }
-    
-    void beforeBeanDiscovery(@Observes final BeforeBeanDiscovery event, BeanManager beanManager) {
-        AnnotatedType flowDiscoveryHelper = beanManager.createAnnotatedType(FlowDiscoveryCDIHelper.class);
-        event.addAnnotatedType(flowDiscoveryHelper);
-        
-    }
-    
-    <T> void findFlowDefiners(@Observes ProcessProducer<T, Flow> pp) {
-    	if (pp.getAnnotatedMember().isAnnotationPresent(FlowDefinition.class)) {
-            flowProducers.add(pp.getProducer());
-            if (LOGGER.isLoggable(Level.FINE)) {
-                LOGGER.log(Level.FINE, "Discovered Flow Producer {0}", pp.getProducer().toString());
-            }
 
-    	}
-    }
-    
-    
+	public List<Producer<Flow>> getFlowProducers() {
+		return flowProducers;
+	}
+
+	void beforeBeanDiscovery(@Observes final BeforeBeanDiscovery event, BeanManager beanManager) {
+		event.addAnnotatedType(
+				beanManager.createAnnotatedType(FlowDiscoveryCDIHelper.class), 
+				FlowDiscoveryCDIExtension.class.getName());
+
+	}
+
+	<T> void findFlowDefiners(@Observes ProcessProducer<T, Flow> event) {
+		if (event.getAnnotatedMember().isAnnotationPresent(FlowDefinition.class)) {
+			flowProducers.add(event.getProducer());
+			
+			if (LOGGER.isLoggable(FINE)) {
+				LOGGER.log(FINE, "Discovered Flow Producer {0}", event.getProducer().toString());
+			}
+
+		}
+	}
+
 }

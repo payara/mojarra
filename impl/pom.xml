@@ -810,7 +810,7 @@
     <dependencies>
         <!-- Java EE Dependencies -->
         
-        <!-- Servlet 4 dependency overriding Java EE 7 main dependency -->
+        <!-- Servlet 4 dependency overriding Java EE 8 main dependency -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -818,7 +818,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Expression Language 3.0.1 overriding Java EE 7 main dependency  -->
+        <!-- Expression Language 3.0.1 overriding Java EE 8 main dependency  -->
         <dependency>
             <groupId>javax.el</groupId>
             <artifactId>javax.el-api</artifactId>
@@ -830,11 +830,11 @@
             <version>3.0.1-b04</version>
         </dependency>
     
-        <!-- The main dependency against which Mojarra 2.3 is created: Java EE 7 -->
+        <!-- The main dependency against which Mojarra 2.3 is created: Java EE 8 -->
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
-            <version>7.0</version>
+            <version>8.0</version>
             <scope>provided</scope>
         </dependency>
         
