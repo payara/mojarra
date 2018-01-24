@@ -16,7 +16,7 @@
     SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
 
 -->
-
+<!-- Portions Copyright [2017] [Payara Foundation and/or its affiliates] -->
 <!--
 
     Project to create the Mojarra implementation jar.
@@ -645,7 +645,7 @@
                             javax.enterprise.util.*,
                             javax.enterprise.context.*,
                             javax.annotation.processing.*,
-                            javax.annotation.*;version="[1.0.0,2.0.0)",
+                            javax.annotation.*,
                             javax.crypto.*,
                             javax.websocket.*;resolution:=optional,
                             javax.json.*;resolution:=optional,
