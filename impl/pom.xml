@@ -40,7 +40,7 @@
     holder.
 
 -->
-
+<!-- Portions Copyright [2017] [Payara Foundation and/or its affiliates] -->
 <!--
 
     Project to create the Mojarra implementation jar.
@@ -70,7 +70,7 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <mojarra.logstrings.version>${project.version}</mojarra.logstrings.version>
+        <mojarra.logstrings.version>2.4.0-m01.payara-p5</mojarra.logstrings.version>
     </properties>
     
     <build>
@@ -665,7 +665,7 @@
                             javax.enterprise.inject.*,
                             javax.enterprise.util.*,
                             javax.enterprise.context.*,
-                            javax.annotation.*;version="[1.0.0,2.0.0)",
+                            javax.annotation.*,
                             javax.crypto.*,
                             javax.websocket.*;resolution:=optional,
                             javax.json.*;resolution:=optional,
