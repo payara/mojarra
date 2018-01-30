@@ -348,8 +348,6 @@ public class ConfigManager {
                     		" thread id: " + currentThreadId
                     	);
                     
-                    System.out.println("thread id: " + currentThreadId + " ") ;
-                    
                     InitFacesContext initFacesContext = null;
                     if (currentThreadId != parentThreadId) {
                         Thread.currentThread().setContextClassLoader(parentContextClassLoader);
