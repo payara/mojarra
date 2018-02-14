@@ -322,7 +322,6 @@ public class ConfigManager {
                     try {
                         e.process(servletContext, facesContext, facesDocuments2);
                     } catch (Exception e2) {
-                        // TODO Auto-generated catch block
                         e2.printStackTrace();
                     }
                 });
@@ -342,11 +341,13 @@ public class ConfigManager {
                     
                     long currentThreadId = Thread.currentThread().getId();
                     
-                    LOGGER.info(
-                    		"Executing config processer: " + e.getClass() + 
-                    		" parallel: " + useParallelInit + 
-                    		" thread id: " + currentThreadId
-                    	);
+                    if (LOGGER.isLoggable(FINE)) {
+                        LOGGER.fine(
+                        		"Executing config processer: " + e.getClass() + 
+                        		" parallel: " + useParallelInit + 
+                        		" thread id: " + currentThreadId
+                        	);
+                    }
                     
                     InitFacesContext initFacesContext = null;
                     if (currentThreadId != parentThreadId) {
@@ -363,7 +364,6 @@ public class ConfigManager {
                     try {
                         e.process(servletContext, initFacesContext, facesDocuments2);
                     } catch (Exception e1) {
-                        // TODO Auto-generated catch block
                         e1.printStackTrace();
                     } finally {
                         if (currentThreadId != parentThreadId) {
