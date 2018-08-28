@@ -58,7 +58,7 @@
     <parent>
        <groupId>com.sun.faces</groupId>
         <artifactId>project</artifactId>
-        <version>2.4.0-m01-SNAPSHOT</version>
+        <version>2.3.3.99</version>
     </parent>
     
     <groupId>org.glassfish</groupId>
@@ -70,7 +70,7 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <mojarra.logstrings.version>2.4.0-m01.payara-p5</mojarra.logstrings.version>
+        <mojarra.logstrings.version>${project.version}.payara-p5</mojarra.logstrings.version>
     </properties>
     
     <build>
@@ -665,7 +665,8 @@
                             javax.enterprise.inject.*,
                             javax.enterprise.util.*,
                             javax.enterprise.context.*,
-                            javax.annotation.*,
+                            javax.annotation.processing.*,
+                            javax.annotation.*;version="[1.0.0,2.0.0)",
                             javax.crypto.*,
                             javax.websocket.*;resolution:=optional,
                             javax.json.*;resolution:=optional,
@@ -702,6 +703,12 @@
                             resolution:=optional;cardinality:=multiple,
                             osgi.extender;filter:="(osgi.extender=osgi.serviceloader.processor)";resolution:=optional
                         </Require-Capability>
+                        <Provide-Capability>
+                            osgi.extender;osgi.extender="jsp.taglib";uri="http://java.sun.com/jsf/html";
+                                version:Version="2.3",
+                            osgi.extender;osgi.extender="jsp.taglib";uri="http://java.sun.com/jsf/core";
+                                version:Version="2.3"
+                        </Provide-Capability>
                     </instructions>
                 </configuration>
             </plugin>
@@ -841,7 +848,7 @@
         <dependency>
             <groupId>com.sun.faces.build</groupId>
             <artifactId>jsf-tools</artifactId>
-            <version>2.4.0-m01-SNAPSHOT</version>
+            <version>2.3.3.99</version>
             <scope>provided</scope>
         </dependency>
         
