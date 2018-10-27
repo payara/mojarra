@@ -47,7 +47,7 @@
     <parent>
         <groupId>com.sun.faces.test.webprofile</groupId>
         <artifactId>pom</artifactId>
-        <version>2.2.14-SNAPSHOT</version>
+        <version>2.2.19-SNAPSHOT</version>
     </parent>
     <groupId>com.sun.faces.test.webprofile.flow</groupId>
     <artifactId>pom</artifactId>
@@ -71,5 +71,6 @@
         <module>parameter_faces_flow_call</module>
         <module>return_from_depth</module>
         <module>view_node_differences</module>
+        <module>getNavigationCase-not-idempotent-issue-4279</module>
     </modules>
 </project>
