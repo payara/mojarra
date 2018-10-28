@@ -110,7 +110,8 @@
 
     <target name="prepare" depends="init"
             description="Prepare build directory">
-        <jsf.svninfo />
+        <jsf.gitinfo />
+        <echo message="Building from |${git.last.sha1}|" />
         <echo message="Building from |${svn.revision.url}|" /> 
         <mkdir dir="${build.dir}"/>
         <mkdir dir="${build.generate.dir}"/>
@@ -328,7 +329,7 @@
         <!-- Massage the version number into LogStrings.properties -->
         <replace dir="${build.classes.dir}/com/sun/faces/"
                  token="|version.string|"
-                 value="${impl.version.number} (${build.type} ${build.number} ${svn.revision.url})">
+                 value="${impl.version.number} (${build.type} ${build.number} ${git.last.sha1})">
             <include name="LogStrings*.properties"/>
         </replace>
 
@@ -674,7 +675,7 @@
                  value="${impl.version}"/>
         <replace file="tmp.bnd"
                  token="@full.impl.version@"
-                 value="${full.impl.version} ${svn.revision.url}"/>
+                 value="${full.impl.version} ${git.last.sha1}"/>
         <if>
             <equals arg1="${build.type}" arg2=""/>
             <then>
@@ -833,7 +834,7 @@ ant -Dgpg.passphrase=PASSPHRASE HERE mvn.deploy.snapshot.local
                  private="${javadoc.private}"
                  protected="${javadoc.protected}"
                  windowtitle="${DocName} (${spec.version})"
-                 source="1.5"
+                 source="1.6"
                  doctitle="${DocName} (${spec.version})"
                  bottom="Copyright &#169; 2002-2013 Oracle America, Inc. All Rights Reserved.">
            <link offline="true"
