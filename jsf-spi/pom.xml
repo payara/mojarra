@@ -21,7 +21,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.sun.faces</groupId>
     <artifactId>jsf-spi</artifactId>
-    <version>2.3.9.payara-p1</version>
+    <version>2.3.9.payara-p2</version>
     <packaging>jar</packaging>
     <name>
         Public API declaration for the Mojarra container Service Provider Interface
