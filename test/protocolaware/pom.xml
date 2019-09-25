@@ -23,7 +23,7 @@
     <parent>
         <groupId>com.sun.faces.test</groupId>
         <artifactId>pom</artifactId>
-        <version>2.3.9.payara-p3</version>
+        <version>2.3.9.payara-p4-SNAPSHOT</version>
     </parent>
 
     <groupId>com.sun.faces.test.protocolaware</groupId>
@@ -35,7 +35,7 @@
         <module>annotationScanning</module>
         <module>flash</module>
     </modules>
-    
+
     <profiles>
         <profile>
             <id>integration-protocolaware</id>
@@ -60,7 +60,7 @@
                                 </configuration>
                             </execution>
                         </executions>
-                    </plugin>                
+                    </plugin>
                 </plugins>
             </build>
             <properties>

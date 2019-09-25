@@ -22,11 +22,11 @@
     <parent>
         <groupId>com.sun.faces.test.servlet30</groupId>
         <artifactId>pom</artifactId>
-        <version>2.3.9.payara-p3</version>
-    </parent>  
+        <version>2.3.9.payara-p4-SNAPSHOT</version>
+    </parent>
     <artifactId>flashCustom</artifactId>
     <packaging>war</packaging>
-    <name>Mojarra ${project.version} - Test - Servlet 3.0 - Flash Custom</name>  
+    <name>Mojarra ${project.version} - Test - Servlet 3.0 - Flash Custom</name>
     <build>
         <finalName>test-servlet30-flashCustom</finalName>
     </build>

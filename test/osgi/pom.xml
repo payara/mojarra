@@ -19,24 +19,24 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    
+
     <parent>
         <groupId>com.sun.faces.test</groupId>
         <artifactId>pom</artifactId>
-        <version>2.3.9.payara-p3</version>
+        <version>2.3.9.payara-p4-SNAPSHOT</version>
     </parent>
-    
+
     <groupId>com.sun.faces.test.osgi</groupId>
     <artifactId>pom</artifactId>
     <packaging>pom</packaging>
     <name>Mojarra ${project.version} - Test - OSGi</name>
-    
+
     <modules>
         <module>simple</module>
         <module>wabJar</module>
         <module>wabWar</module>
     </modules>
-    
+
     <profiles>
          <profile>
             <id>glassfish-osgi-deploy</id>
@@ -56,7 +56,7 @@
                                     <target>
                                         <echo>=== Deploying ${project.build.finalName} ===</echo>
                                         <echo file="${glassfish.osgi.deploy.home}/password.txt" append="false">
-AS_ADMIN_PASSWORD=adminadmin                                           
+AS_ADMIN_PASSWORD=adminadmin
                                         </echo>
                                         <exec executable="${glassfish.osgi.deploy.home}/glassfish/bin/asadmin.bat" osfamily="windows">
                                             <arg line="deploy --force --passwordfile ${glassfish.osgi.deploy.home}/password.txt --type osgi ${project.build.directory}/${project.build.finalName}.war"/>
@@ -102,7 +102,7 @@ AS_ADMIN_PASSWORD=adminadmin
                                 </configuration>
                             </execution>
                         </executions>
-                    </plugin>                    
+                    </plugin>
                 </plugins>
             </build>
             <properties>

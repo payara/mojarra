@@ -18,17 +18,17 @@
 -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.sun.faces.test</groupId>
     <artifactId>pom</artifactId>
-    <version>2.3.9.payara-p3</version>
+    <version>2.3.9.payara-p4-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Mojarra ${project.version} - Test</name>
-    
+
     <properties>
         <jsf.groupId>org.glassfish</jsf.groupId>
         <jsf.artifactId>jakarta.faces</jsf.artifactId>
@@ -40,7 +40,7 @@
         <webapp.projectStage>Production</webapp.projectStage>
         <webapp.stateSavingMethod>server</webapp.stateSavingMethod>
     </properties>
-    
+
     <modules>
         <module>servlet30</module>
         <module>servlet30-isolated</module>
@@ -51,14 +51,14 @@
         <module>javaee7</module>
         <module>javaee8</module>
         <module>htmlunitaware</module>
-        
+
         <module>cluster</module>
         <module>osgi</module>
         <module>protocolaware</module>
         <module>glassfish</module>
         <module>weblogic</module>
     </modules>
-    
+
     <build>
         <pluginManagement>
             <plugins>
@@ -77,7 +77,7 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.6.1</version>
                 </plugin>
-                <plugin>                 
+                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
                     <version>3.0.0</version>
@@ -86,7 +86,7 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
                     <version>2.19.1</version>
-                </plugin>                
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
@@ -101,7 +101,7 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-report-plugin</artifactId>
                     <version>2.19.1</version>
-                </plugin>                
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-war-plugin</artifactId>
@@ -119,7 +119,7 @@
                 </plugin>
             </plugins>
         </pluginManagement>
-        
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -150,7 +150,7 @@
             </plugin>
         </plugins>
     </build>
-    
+
     <dependencies>
         <dependency>
             <groupId>jakarta.faces</groupId>
@@ -158,7 +158,7 @@
             <version>2.3.1</version>
             <scope>provided</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>jakarta.faces</artifactId>
@@ -177,7 +177,7 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -193,11 +193,11 @@
         <dependency>
             <groupId>com.sun.faces</groupId>
             <artifactId>util</artifactId>
-            <version>2.3.9.payara-p3</version>
+            <version>2.3.9.payara-p4-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
-    
+
     <profiles>
         <profile>
             <id>glassfish-cargo</id>
@@ -207,7 +207,7 @@
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven2-plugin</artifactId>
                         <inherited>true</inherited>
-                        
+
                         <executions>
                             <execution>
                                 <id>start-container</id>
@@ -229,8 +229,8 @@
                                     <timeout>2400000</timeout>
                                 </configuration>
                             </execution>
-                        </executions>                        
-                        
+                        </executions>
+
                         <configuration>
                             <container>
                                 <containerId>${glassfish.cargo.id}</containerId>
@@ -241,7 +241,7 @@
                             <configuration>
                                 <type>${glassfish.cargo.configType}</type>
                                 <home>${glassfish.cargo.config}</home>
-                                <!-- 
+                                <!--
                                 <xmlReplacements>
                                     <xmlReplacement>
                                       <file>domain1/config/domain.xml</file>
@@ -271,7 +271,7 @@
                 <glassfish.cargo.servletPort>8080</glassfish.cargo.servletPort>
             </properties>
         </profile>
-        
+
         <profile>
             <id>glassfish-deploy</id>
             <build>
@@ -299,24 +299,24 @@
                                 </configuration>
                             </execution>
                         </executions>
-                    </plugin>                    
+                    </plugin>
                 </plugins>
             </build>
             <properties>
                 <glassfish.deploy.home>${user.home}/Glassfish4.1</glassfish.deploy.home>
             </properties>
         </profile>
-        
+
         <profile>
             <id>glassfish-patch</id>
             <build>
                 <plugins>
-                    <plugin>                 
+                    <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-dependency-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>copy</id>                         
+                                <id>copy</id>
                                 <phase>validate</phase>
                                 <goals>
                                     <goal>copy</goal>
@@ -328,7 +328,7 @@
                                             <artifactId>jakarta.faces</artifactId>
                                             <version>${jsf.version}</version>
                                             <type>jar</type>
-                                            <overWrite>true</overWrite>                                     
+                                            <overWrite>true</overWrite>
                                             <outputDirectory>${glassfish.patch.home}/glassfish/modules</outputDirectory>
                                             <destFileName>javax.faces.jar</destFileName>
                                         </artifactItem>
@@ -351,7 +351,7 @@
                 <glassfish.patch.home>${user.home}/Glassfish4.1</glassfish.patch.home>
             </properties>
         </profile>
-        
+
         <profile>
             <id>glassfish-start</id>
             <build>
@@ -379,14 +379,14 @@
                                 </configuration>
                             </execution>
                         </executions>
-                    </plugin>                    
+                    </plugin>
                 </plugins>
             </build>
             <properties>
                 <glassfish.start.home>${user.home}/Glassfish4.1</glassfish.start.home>
             </properties>
         </profile>
-        
+
         <profile>
             <id>glassfish-stop</id>
             <build>
@@ -414,14 +414,14 @@
                                 </configuration>
                             </execution>
                         </executions>
-                    </plugin>                    
+                    </plugin>
                 </plugins>
             </build>
             <properties>
                 <glassfish.stop.home>${user.home}/Glassfish4.1</glassfish.stop.home>
             </properties>
         </profile>
-        
+
         <profile>
             <id>glassfish-tck</id>
             <build>
@@ -441,44 +441,44 @@
                                         <!--
                                             Initial release of TCK does not have an exclude file,
                                             so this is why the 3 lines below are currently commented out.
-                                            
+
                                         <delete file="../ts.jtx" failonerror="false"/>
                                         <get src="${glassfish.tck.exclude.url}" dest="../ts.jtx"/>
                                         <copy force="true" file="../ts.jtx" tofile="../jsftck/bin/ts.jtx"/>
                                           -->
-                                        <replaceregexp file="../jsftck/bin/ts.jte" 
+                                        <replaceregexp file="../jsftck/bin/ts.jte"
                                                        match="sigTestClasspath=(.*)"
                                                        replace="sigTestClasspath=${sigTestClasspath}"
                                                        byline="true"/>
-                                        <replaceregexp file="../jsftck/bin/ts.jte" 
+                                        <replaceregexp file="../jsftck/bin/ts.jte"
                                                        match="jsf.classes=(.*)"
                                                        replace="jsf.classes=${jsfClasses}"
                                                        byline="true"/>
-                                        <replaceregexp file="../jsftck/bin/ts.jte" 
+                                        <replaceregexp file="../jsftck/bin/ts.jte"
                                                        match="jspservlet.classes=(.*)"
                                                        replace="jspservlet.classes=${jspServletClasses}"
                                                        byline="true"/>
-                                        <replaceregexp file="../jsftck/bin/ts.jte" 
+                                        <replaceregexp file="../jsftck/bin/ts.jte"
                                                        match="webServerHome=(.*)"
                                                        replace="webServerHome=${glassfishHome}"
                                                        byline="true"/>
-                                        <replaceregexp file="../jsftck/bin/ts.jte" 
+                                        <replaceregexp file="../jsftck/bin/ts.jte"
                                                        match="webServerPort=(.*)"
                                                        replace="webServerPort=${glassfishPort}"
                                                        byline="true"/>
-                                        <replaceregexp file="../jsftck/bin/ts.jte" 
+                                        <replaceregexp file="../jsftck/bin/ts.jte"
                                                        match="webServerHost=(.*)"
                                                        replace="webServerHost=${glassfishHost}"
                                                        byline="true"/>
-                                        <replaceregexp file="../jsftck/bin/ts.jte" 
+                                        <replaceregexp file="../jsftck/bin/ts.jte"
                                                        match="impl.vi=(.*)"
                                                        replace="impl.vi=glassfish"
                                                        byline="true"/>
-                                        <replaceregexp file="../jsftck/bin/ts.jte" 
+                                        <replaceregexp file="../jsftck/bin/ts.jte"
                                                        match="impl.vi.deploy.dir=(.*)"
                                                        replace="impl.vi.deploy.dir=${glassfishDeployDir}"
                                                        byline="true"/>
-                                        <replaceregexp file="../jsftck/bin/ts.jte" 
+                                        <replaceregexp file="../jsftck/bin/ts.jte"
                                                        match="impl.deploy.timeout.multiplier=(.*)"
                                                        replace="impl.deploy.timeout.multiplier=20"
                                                        byline="true"/>
@@ -507,7 +507,7 @@
                                 </exclusions>
                             </dependency>
                         </dependencies>
-                    </plugin>  
+                    </plugin>
                 </plugins>
             </build>
             <properties>
@@ -516,7 +516,7 @@
                 <glassfish.tck.exclude.url>http://localhost/js.tx</glassfish.tck.exclude.url>
             </properties>
         </profile>
-        
+
         <profile>
             <id>glassfish-unzip</id>
             <build>
@@ -556,7 +556,7 @@
                                 </exclusions>
                             </dependency>
                         </dependencies>
-                    </plugin>                    
+                    </plugin>
                 </plugins>
             </build>
             <properties>
@@ -565,7 +565,7 @@
                 <glassfish.unzip.zipFile>C:/Downloads/Glassfish4.0.zip</glassfish.unzip.zipFile>
             </properties>
         </profile>
-        
+
         <profile>
             <id>integration</id>
             <build>
@@ -594,7 +594,7 @@
                                 <project.build.sourceEncoding>${project.build.sourceEncoding}</project.build.sourceEncoding>
                             </systemPropertyVariables>
                         </configuration>
-                    </plugin>                
+                    </plugin>
                 </plugins>
             </build>
             <properties>
@@ -619,7 +619,7 @@
                 </plugins>
             </reporting>
         </profile>
-        
+
         <profile>
             <id>integration-virtual</id>
             <build>
@@ -664,7 +664,7 @@
                                 </configuration>
                             </execution>
                         </executions>
-                    </plugin>                
+                    </plugin>
                 </plugins>
             </build>
             <properties>
@@ -691,17 +691,17 @@
                 </plugins>
             </reporting>
         </profile>
-        
+
         <profile>
             <id>patch</id>
             <build>
                 <plugins>
-                    <plugin>                 
+                    <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-dependency-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>copy</id>                         
+                                <id>copy</id>
                                 <phase>validate</phase>
                                 <goals>
                                     <goal>copy</goal>
@@ -713,7 +713,7 @@
                                             <artifactId>${patch.artifactId}</artifactId>
                                             <version>${patch.version}</version>
                                             <type>jar</type>
-                                            <overWrite>true</overWrite>                                     
+                                            <overWrite>true</overWrite>
                                             <outputDirectory>${patch.outputDirectory}</outputDirectory>
                                             <destFileName>${patch.destFilename}</destFileName>
                                         </artifactItem>
@@ -725,17 +725,17 @@
                 </plugins>
             </build>
         </profile>
-        
+
         <profile>
             <id>tomcat-cargo</id>
             <build>
                 <plugins>
-                    <plugin>                 
+                    <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-dependency-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>copy</id>                         
+                                <id>copy</id>
                                 <phase>package</phase>
                                 <goals>
                                     <goal>copy</goal>
@@ -747,16 +747,16 @@
                                             <artifactId>${jsf.artifactId}</artifactId>
                                             <version>${jsf.version}</version>
                                             <type>jar</type>
-                                            <overWrite>true</overWrite>                                     
+                                            <overWrite>true</overWrite>
                                             <outputDirectory>${integration.container.extractDir}/apache-tomcat-${tomcat.version}/apache-tomcat-${tomcat.version}/lib</outputDirectory>
                                             <destFileName>javax.faces.jar</destFileName>
                                         </artifactItem>
                                         <artifactItem>
-                                            <groupId>javax.servlet.jsp.jstl</groupId> 
-                                            <artifactId>jstl-api</artifactId> 
-                                            <version>1.2</version> 
+                                            <groupId>javax.servlet.jsp.jstl</groupId>
+                                            <artifactId>jstl-api</artifactId>
+                                            <version>1.2</version>
                                             <type>jar</type>
-                                            <overWrite>true</overWrite>                                     
+                                            <overWrite>true</overWrite>
                                             <outputDirectory>${integration.container.extractDir}/apache-tomcat-${tomcat.version}/apache-tomcat-${tomcat.version}/lib</outputDirectory>
                                             <destFileName>jstl-api.jar</destFileName>
                                         </artifactItem>
@@ -765,7 +765,7 @@
                                             <artifactId>javax.servlet.jsp.jstl</artifactId>
                                             <version>1.2.1</version>
                                             <type>jar</type>
-                                            <overWrite>true</overWrite>                                     
+                                            <overWrite>true</overWrite>
                                             <outputDirectory>${integration.container.extractDir}/apache-tomcat-${tomcat.version}/apache-tomcat-${tomcat.version}/lib</outputDirectory>
                                             <destFileName>jstl-impl.jar</destFileName>
                                         </artifactItem>
@@ -774,7 +774,7 @@
                                             <artifactId>javax.el</artifactId>
                                             <version>2.2.6</version>
                                             <type>jar</type>
-                                            <overWrite>true</overWrite>                                     
+                                            <overWrite>true</overWrite>
                                             <outputDirectory>${integration.container.extractDir}/apache-tomcat-${tomcat.version}/apache-tomcat-${tomcat.version}/lib</outputDirectory>
                                             <destFileName>javax.el.jar</destFileName>
                                         </artifactItem>
@@ -783,7 +783,7 @@
                                             <artifactId>weld-servlet</artifactId>
                                             <version>2.4.1.Final</version>
                                             <type>jar</type>
-                                            <overWrite>true</overWrite>                                     
+                                            <overWrite>true</overWrite>
                                             <outputDirectory>${integration.container.extractDir}/apache-tomcat-${tomcat.version}/apache-tomcat-${tomcat.version}/lib</outputDirectory>
                                             <destFileName>weld-servlet.jar</destFileName>
                                         </artifactItem>
@@ -817,7 +817,7 @@
                                     <timeout>24000000</timeout>
                                 </configuration>
                             </execution>
-                        </executions>                        
+                        </executions>
                         <configuration>
                             <container>
                                 <containerId>${integration.container.id}</containerId>
@@ -835,7 +835,7 @@
                                 <properties>
                                     <cargo.hostname>${integration.serverName}</cargo.hostname>
                                     <cargo.servlet.port>${integration.serverPort}</cargo.servlet.port>
-<!-- 
+<!--
   Uncomment to cause Tomcat to be started with debugging enabled.  Make
   sure to pay attention to the value of the suspend parameter.
 
@@ -861,7 +861,7 @@
                 <tomcat.version>8.5.11</tomcat.version>
             </properties>
         </profile>
-        
+
         <profile>
             <id>weblogic-cargo</id>
             <build>
@@ -909,17 +909,17 @@
                 <timeout>60</timeout>
             </properties>
         </profile>
-        
+
         <profile>
             <id>weblogic-patch</id>
             <build>
                 <plugins>
-                    <plugin>                 
+                    <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-dependency-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>copy</id>                         
+                                <id>copy</id>
                                 <phase>prepare-package</phase>
                                 <goals>
                                     <goal>copy</goal>
@@ -931,7 +931,7 @@
                                             <artifactId>${jsf.artifactId}</artifactId>
                                             <version>${jsf.version}</version>
                                             <type>jar</type>
-                                            <overWrite>true</overWrite>                                     
+                                            <overWrite>true</overWrite>
                                             <outputDirectory>${weblogic.patch.home}/tmp.mojarra</outputDirectory>
                                             <destFileName>jakarta.faces.jar</destFileName>
                                         </artifactItem>
@@ -940,7 +940,7 @@
                             </execution>
                         </executions>
                     </plugin>
-                    <plugin>                 
+                    <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-antrun-plugin</artifactId>
                         <executions>
@@ -989,7 +989,7 @@
                 <weblogic.patch.mojarraJarName>glassfish.jsf.jar</weblogic.patch.mojarraJarName>
             </properties>
         </profile>
-        
+
         <profile>
             <id>weblogic-start</id>
             <build>
@@ -1036,7 +1036,7 @@
                 <timeout>60</timeout>
             </properties>
         </profile>
-        
+
         <profile>
             <id>weblogic-unzip</id>
             <build>
@@ -1074,7 +1074,7 @@
                                 </exclusions>
                             </dependency>
                         </dependencies>
-                    </plugin>                    
+                    </plugin>
                 </plugins>
             </build>
             <properties>
