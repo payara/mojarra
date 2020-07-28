@@ -83,7 +83,7 @@
         <pathelement location="${javax.faces.jar}"/>
         <path refid="sun.commons.classpath"/>
         <path refid="compile.classpath"/>
-        <pathelement location="${tools.dir}/build/classes"/>
+        <pathelement location="${tools.dir}/target/classes"/>
     </path>
 
 
@@ -213,7 +213,7 @@
                  classname="com.sun.faces.ant.ComponentGenTask">
             <classpath>
                 <path refid="sun.commons.classpath"/>
-                <pathelement location="${tools.dir}/build/classes"/>
+                <pathelement location="${tools.dir}/target/classes"/>
             </classpath>
         </taskdef>
         <generateComponents
@@ -224,7 +224,7 @@
                 <path refid="sun.commons.classpath"/>
                 <path refid="compile.classpath"/>
                 <pathelement location="${javax.faces-api.jar}"/>
-                <pathelement location="${tools.dir}/build/classes"/>
+                <pathelement location="${tools.dir}/target/classes"/>
             </classpath>
             <assertions>
                 <enable/>

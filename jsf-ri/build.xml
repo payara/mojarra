@@ -96,7 +96,7 @@
         <path refid="apache.commons.classpath"/>
         <path refid="compile.classpath"/>
         <pathelement location="${jsf-tools.jar}"/>
-        <pathelement location="${tools.dir}/build/classes"/>
+        <pathelement location="${tools.dir}/target/classes"/>
     </path>
 
 
@@ -236,12 +236,12 @@
             </fileset>
         </copy>
 
-        <mkdir dir="${tools.dir}/build/classes"/>
-        <copy todir="${tools.dir}/build/classes">
+        <mkdir dir="${tools.dir}/target/classes"/>
+        <copy todir="${tools.dir}/target/classes">
             <fileset dir="${impl.dir}/src/main/resources"
                      includes="**/LogStrings.properties"/>
         </copy>
-        <copy todir="${tools.dir}/build/classes/com/sun/faces"
+        <copy todir="${tools.dir}/target/classes/com/sun/faces"
               flatten="true">
             <fileset dir="${api.dir}/doc"
                       includes="*.dtd,*.xsd"/>
@@ -250,14 +250,14 @@
                  classname="com.sun.faces.ant.TaglibGenTask">
             <classpath>
                 <pathelement location="${jsf-tools.jar}"/>
-                <pathelement location="${tools.dir}/build/classes"/>
+                <pathelement location="${tools.dir}/target/classes"/>
             </classpath>
         </taskdef>
         <taskdef name="generateAttrManager"
                  classname="com.sun.faces.ant.AttributeManagerGenTask">
             <classpath>
                 <pathelement location="${jsf-tools.jar}"/>
-                <pathelement location="${tools.dir}/build/classes"/>
+                <pathelement location="${tools.dir}/target/classes"/>
             </classpath>
         </taskdef>
         <generateTaglib
@@ -509,7 +509,7 @@
                  classname="com.sun.faces.ant.FaceletsTLDGenTask">
             <classpath>
                 <pathelement location="${jsf-tools.jar}"/>
-                <pathelement location="${tools.dir}/build/classes"/>
+                <pathelement location="${tools.dir}/target/classes"/>
             </classpath>
         </taskdef>
 

@@ -265,9 +265,9 @@
         <attribute name="output-dir"/>
 
         <sequential>
-            <mkdir dir="${tools.dir}/build/classes"/>
+            <mkdir dir="${tools.dir}/target/classes"/>
             <jsf.javac srcdir="${tools.dir}/src/main/java"
-                   destdir="${tools.dir}/build/classes">
+                   destdir="${tools.dir}/target/classes">
                 <classpath>
                     <path refid="compile.classpath"/>  
                     <path refid="apache.commons.classpath"/>
@@ -276,7 +276,7 @@
             <taskdef name="generateComponents"
                      classname="com.sun.faces.ant.ComponentGenTask">
                 <classpath>
-                    <pathelement location="${tools.dir}/build/classes"/>
+                    <pathelement location="${tools.dir}/target/classes"/>
                 </classpath>
             </taskdef>
             <generateComponents
@@ -286,7 +286,7 @@
                 <classpath>
                     <path refid="compile.classpath"/>
                     <pathelement location="${jsf-api-intermediate.jar}"/>
-                    <pathelement location="${tools.dir}/build/classes"/>
+                    <pathelement location="${tools.dir}/target/classes"/>
                 </classpath>
                 <sysproperty key="java.endorsed.dirs" value="${endorsed.dirs}"/>
             </generateComponents>

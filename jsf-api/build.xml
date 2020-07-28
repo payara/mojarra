@@ -84,7 +84,7 @@
         <pathelement location="${build.test.dir}"/>
         <pathelement location="${jsf.test.jar}"/>
         <pathelement location="${jsf-tools.jar}"/>
-        <pathelement location="${tools.dir}/build/classes"/>
+        <pathelement location="${tools.dir}/target/classes"/>
         <path refid="apache.commons.classpath"/>
         <path refid="api-compile.classpath"/>
         <path refid="junit.classpath"/>
@@ -202,7 +202,7 @@
             <classpath>
                 <path refid="apache.commons.classpath"/>
                 <pathelement location="${jsf-tools.jar}"/>
-                <pathelement location="${tools.dir}/build/classes"/>
+                <pathelement location="${tools.dir}/target/classes"/>
             </classpath>
         </taskdef>
         <generateComponents
@@ -218,7 +218,7 @@
                 <pathelement location="${commons-logging.jar}" />
                 <pathelement location="${jsf-api-intermediate.jar}"/>
                 <pathelement location="${jsf-tools.jar}"/>
-                <pathelement location="${tools.dir}/build/classes"/>
+                <pathelement location="${tools.dir}/target/classes"/>
             </classpath>
             <assertions>
                 <enable/>
@@ -240,7 +240,7 @@
             <classpath>
                 <path refid="apache.commons.classpath"/>
                 <pathelement location="${jsf-tools.jar}"/>
-                <pathelement location="${tools.dir}/build/classes"/>
+                <pathelement location="${tools.dir}/target/classes"/>
             </classpath>
         </taskdef>
         <copy todir="${build.generate.dir}/facesdoc/">
@@ -260,7 +260,7 @@
                 <path refid="compile.classpath"/>
                 <pathelement location="${jsf-api-intermediate.jar}"/>
                 <pathelement location="${jsf-tools.jar}"/>
-                <pathelement location="${tools.dir}/build/classes"/>
+                <pathelement location="${tools.dir}/target/classes"/>
             </classpath>
             <sysproperty key="java.endorsed.dirs" value="${endorsed.dirs}"/>
             <sysproperty key="tools.src.dir" value="${tools.dir}/src/main/java"/>
@@ -277,12 +277,12 @@
             <pathelement location="${myenv.ANT_HOME}/lib/ant.jar"/>
         </path>
 
-        <mkdir dir="${tools.dir}/build/classes"/>
-        <copy todir="${tools.dir}/build/classes" >
+        <mkdir dir="${tools.dir}/target/classes"/>
+        <copy todir="${tools.dir}/target/classes" >
             <fileset dir="${impl.dir}/src/main/resources"
                      includes="**/LogStrings.properties"/>
         </copy>
-        <copy todir="${tools.dir}/build/classes/com/sun/faces"
+        <copy todir="${tools.dir}/target/classes/com/sun/faces"
               flatten="true">
             <fileset dir="${api.dir}/doc"
                      includes="*.dtd,*.xsd"/>
@@ -603,7 +603,7 @@ javax.faces.level=ALL
         <taskdef name="validate" classname="com.sun.faces.ant.ValidateTask">
             <classpath>
                 <pathelement location="${jsf-tools.jar}"/>
-                <pathelement location="${tools.dir}/build/classes"/>
+                <pathelement location="${tools.dir}/target/classes"/>
             </classpath>
         </taskdef>
         <validate schemaDir="${basedir}/doc"/>
