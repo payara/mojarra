@@ -46,6 +46,15 @@
     <packaging>jar</packaging>
     <name>Mojarra - Dependency Downloader</name>
 
+    <properties>
+        <!-- must be version 1.9. -->
+        <ant.home></ant.home>
+        <!-- must be version 3.2.5 -->
+        <mvn.home></mvn.home>
+        <!-- must be version 1.6 -->
+        <jdk.home>/usr/lib/jvm/jdk1.6.0</jdk.home>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
@@ -132,11 +141,56 @@
             <artifactId>el-api</artifactId>
             <version>1.0</version>
         </dependency>
-        <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>el-api</artifactId>
-            <version>2.2</version>
-        </dependency>
     </dependencies>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <environmentVariables>
+                        <JAVA_HOME>${jdk.home}</JAVA_HOME>
+                        <PATH>${mvn.home}/bin:${env.PATH}</PATH>
+                    </environmentVariables>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>build-ant-jsf-tools</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <workingDirectory>${basedir}/jsf-tools</workingDirectory>
+                            <executable>${mvn.home}/bin/mvn</executable>
+                            <commandlineArgs>clean install</commandlineArgs>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>build-mojarra</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>${ant.home}/bin/ant</executable>
+                            <commandlineArgs>clean main</commandlineArgs>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <!-- Ugly hack to get both el-api versions to the local maven repository cache -->
+                    <dependency>
+                        <groupId>javax.el</groupId>
+                        <artifactId>el-api</artifactId>
+                        <version>2.2</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
