@@ -89,7 +89,7 @@
         <pathelement location="${jsf-api-intermediate.jar}"/>
         <path refid="apache.commons.classpath"/>
         <path refid="compile.classpath"/>
-        <pathelement location="${tools.dir}/build/classes"/>
+        <pathelement location="${tools.dir}/target/classes"/>
     </path>
 
 
@@ -196,23 +196,23 @@
             </fileset>
         </copy>
 
-        <mkdir dir="${tools.dir}/build/classes"/>
+        <mkdir dir="${tools.dir}/target/classes"/>
         <jsf.javac srcdir="${tools.dir}/src/main/java"
-               destdir="${tools.dir}/build/classes">
+               destdir="${tools.dir}/target/classes">
             <classpath>
                 <path refid="impl.compile.classpath"/>
                 <path refid="ant.classpath"/>
             </classpath>
         </jsf.javac>
-        <copy todir="${tools.dir}/build/classes">
+        <copy todir="${tools.dir}/target/classes">
             <fileset dir="${tools.dir}/src/main/java"
                      includes="**/*.properties"/>
         </copy>
-        <copy todir="${tools.dir}/build/classes">
+        <copy todir="${tools.dir}/target/classes">
             <fileset dir="${impl.dir}/src"
                      includes="**/LogStrings.properties"/>
         </copy>
-        <copy todir="${tools.dir}/build/classes/com/sun/faces"
+        <copy todir="${tools.dir}/target/classes/com/sun/faces"
               flatten="true">
             <fileset dir="${api.dir}/doc"
                       includes="*.dtd,*.xsd"/>
@@ -220,13 +220,13 @@
         <taskdef name="generateTaglib"
                  classname="com.sun.faces.ant.TaglibGenTask">
             <classpath>
-                <pathelement location="${tools.dir}/build/classes"/>
+                <pathelement location="${tools.dir}/target/classes"/>
             </classpath>
         </taskdef>
         <taskdef name="generateAttrManager"
                  classname="com.sun.faces.ant.AttributeManagerGenTask">
             <classpath>
-                <pathelement location="${tools.dir}/build/classes"/>
+                <pathelement location="${tools.dir}/target/classes"/>
             </classpath>
         </taskdef>
         <generateTaglib
@@ -235,7 +235,7 @@
               fork="true">
             <classpath>
                 <path refid="impl.compile.classpath"/>
-                <pathelement location="${tools.dir}/build/classes"/>
+                <pathelement location="${tools.dir}/target/classes"/>
             </classpath>
             <sysproperty key="java.endorsed.dirs" value="${endorsed.dirs}"/>
             <jvmarg line="${debug.jvm.args}"/>
@@ -249,7 +249,7 @@
               fork="true">
             <classpath>
                 <path refid="impl.compile.classpath"/>
-                <pathelement location="${tools.dir}/build/classes"/>
+                <pathelement location="${tools.dir}/target/classes"/>
             </classpath>
             <sysproperty key="java.endorsed.dirs" value="${endorsed.dirs}"/>
             <jvmarg line="${debug.jvm.args}"/>
@@ -461,7 +461,7 @@
         <taskdef name="generateFaceletsTld"
                  classname="com.sun.faces.ant.FaceletsTLDGenTask">
             <classpath>
-                <pathelement location="${tools.dir}/build/classes"/>
+                <pathelement location="${tools.dir}/target/classes"/>
             </classpath>
         </taskdef>
 
@@ -471,7 +471,7 @@
               fork="true">
             <classpath>
                 <path refid="impl.compile.classpath"/>
-                <pathelement location="${tools.dir}/build/classes"/>
+                <pathelement location="${tools.dir}/target/classes"/>
             </classpath>
             <sysproperty key="java.endorsed.dirs" value="${endorsed.dirs}"/>
             <jvmarg line="${debug.jvm.args}"/>

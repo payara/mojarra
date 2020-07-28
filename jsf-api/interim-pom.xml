@@ -171,7 +171,7 @@
                                 <taskdef name="generateComponents" classname="com.sun.faces.ant.ComponentGenTask">
                                     <classpath>
                                         <path refid="apache.commons.classpath"/>
-                                        <pathelement location="${tools.dir}/build/classes"/>
+                                        <pathelement location="${tools.dir}/target/classes"/>
                                     </classpath>
                                 </taskdef>
                                 <generateComponents
@@ -186,7 +186,7 @@
                                         <pathelement location="${commons-collections.jar}" />
                                         <pathelement location="${commons-logging.jar}" />
                                         <pathelement location="${jsf-api-intermediate.jar}"/>
-                                        <pathelement location="${tools.dir}/build/classes"/>
+                                        <pathelement location="${tools.dir}/target/classes"/>
                                     </classpath>
                                     <assertions>
                                         <enable/>

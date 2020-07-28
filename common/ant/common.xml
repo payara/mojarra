@@ -70,10 +70,10 @@
                uri="antlib:org.apache.maven.artifact.ant"
                classpathref="maven-ant-tasks.classpath" />
 
-    
+
     <!-- Setup the time properties for use with the project -->
     <tstamp/>
-    
+
     <!-- Properties needed throughout the project -->
 
     <!-- Structural -->
@@ -82,13 +82,13 @@
     <property name="impl.dir" value="${jsf.build.home}/jsf-ri"/>
     <property name="regression.test.dir" value="${jsf.build.home}/jsf-test"/>
     <property name="mvn.impl.dir" value="${jsf.build.home}/jsf-ri/build/mvn"/>
-    <property name="tools.dir" value="${jsf.build.home}/jsf-tools"/>    
+    <property name="tools.dir" value="${jsf.build.home}/jsf-tools"/>
     <property name="demo.dir" value="${jsf.build.home}/jsf-demo"/>
-    <property name="spec.snapshot.dir" 
+    <property name="spec.snapshot.dir"
               value="${demo.dir}/dist/spec-snapshot" />
     <property name="impl.test.results.dir" value="${impl.dir}/testresults"/>
     <property name="api.test.results.dir" value="${api.dir}/testresults"/>
-    <property name="regression.test.results.dir" 
+    <property name="regression.test.results.dir"
               value="${regression.test.dir}/build/testresults" />
 
     <!-- Name -->
@@ -98,8 +98,8 @@
     <!-- Artifacts of interest -->
     <property name="jsf-api-intermediate.jar" value="${api.dir}/build/lib/jsf-api-intermediate.jar"/>
     <property name="javax.faces-api.jar" value="${api.dir}/build/lib/${api-artifact-id}.jar"/>
-    <property name="javax.faces.jar" value="${impl.dir}/build/lib/${impl-artifact-id}.jar"/>   
-    <property name="jsf.test.jar" value="${jsf.build.home}/lib/jsf-extensions-test-time.jar"/>    
+    <property name="javax.faces.jar" value="${impl.dir}/build/lib/${impl-artifact-id}.jar"/>
+    <property name="jsf.test.jar" value="${jsf.build.home}/lib/jsf-extensions-test-time.jar"/>
     <property name="installer.jar" value="${jsf.build.home}/common/lib/installer-builder.jar"/>
     <property name="javanettasks.jar" value="${jsf.build.home}/common/lib/javanettasks-1.0.5.jar"/>
     <property name="standard.renderkit.xml" value="${api.dir}/doc/standard-html-renderkit.xml"/>
@@ -160,10 +160,12 @@
     </condition>
 
     <artifact:localRepository id="local.repository" path="${maven.repo.local}"/>
-    
+
+    <!--
     <artifact:remoteRepository id="j.n.repo" url="https://maven.java.net/content/repositories/releases/"/>
     <artifact:remoteRepository id="j.n.repo.snapshot" url="https://maven.java.net/content/repositories/snapshots/"/>
     <artifact:remoteRepository id="ibiblio.repo" url="http://mirrors.ibiblio.org/pub/mirrors/maven2/"/>
+    -->
 
     <artifact:dependencies filesetId="compile.filepath" pathId="compile.path">
         <dependency groupId="javax.el" artifactId="javax.el-api" version="2.2.1" scope="provided"/>
@@ -219,7 +221,7 @@
     <!-- Intra-project dependency property names -->
 
     <!-- this is hard coded to match the values in ${basedir}/jsf-tools/pom.xml -->
-    <property name="jsf-tools.jar" 
+    <property name="jsf-tools.jar"
           value="${maven.repo.local}/com/sun/faces/build/jsf-tools/${impl.version.number}/jsf-tools-${impl.version.number}.jar" />
 
     <!-- Test classpaths that are used in multiple places within the project -->
@@ -242,13 +244,13 @@
         <fileset dir="${htmlunit.home}/lib" includes="*.jar"/>
     </path>
 
-    <!-- Make sure to compile/run with the special cactus jar 
+    <!-- Make sure to compile/run with the special cactus jar
          in our source repository, rather than the stock version -->
     <path id="cactus.compile.classpath">
         <path refid="junit.classpath"/>
         <fileset dir="${jsf.build.home}/lib" includes="cactus-*.jar"/>
         <fileset dir="${cactus.home}/lib" includes="cactus-*.jar" excludes="*ant*.jar"/>
-    </path>            
+    </path>
 
     <path id="cactus.runtime.classpath">
         <path refid="junit.classpath"/>
@@ -276,7 +278,7 @@
     </path>
 
     <!-- HtmlUnit client classpath -->
-    <path id="html.classpath">  
+    <path id="html.classpath">
         <pathelement location="${basedir}/build/classes"/>
         <path refid="htmlunit.runtime.classpath"/>
         <path refid="jsf.test.jar.classpath"/>
@@ -284,7 +286,7 @@
 
 
     <!-- Convenience macro for javac -->
-    <macrodef name="jsf.javac">        
+    <macrodef name="jsf.javac">
         <attribute name="srcdir"/>
         <attribute name="destdir"/>
         <attribute name="includes" default=""/>
@@ -292,7 +294,7 @@
         <attribute name="source" default="1.6"/>
         <attribute name="target" default="1.6"/>
         <element name="classpath" implicit="true" optional="yes"/>
-        <sequential>           
+        <sequential>
             <javac srcdir="@{srcdir}"
                    destdir="@{destdir}"
                    debug="${compile.debug}"
@@ -336,9 +338,9 @@
                 <sysproperty key="port" value="@{custom.port}"/>
                 <sysproperty key="context.path" value="@{context-path}"/>
                 <sysproperty key="explodedWarDir" value="@{explodedWarDir}"/>
-                <sysproperty key="java.util.logging.config.file" 
+                <sysproperty key="java.util.logging.config.file"
                              value="@{logging.config.file}"/>
-                <sysproperty key="force.no.cluster" 
+                <sysproperty key="force.no.cluster"
                              value="@{force.no.cluster}"/>
                 <sysproperty key="container" value="${container.name}" />
                 <sysproperty key="instance.numbers" value="@{instance.numbers}" />
@@ -451,7 +453,7 @@
                                value="com.sun"/>
                     <attribute name="Extension-Name"
                                value="@{extension-name}"/>
-                </manifest>                
+                </manifest>
             </jar>
         </sequential>
     </macrodef>
@@ -480,18 +482,18 @@
         <attribute name="output-dir"/>
 
         <sequential>
-            <mkdir dir="${tools.dir}/build/classes"/>
+            <mkdir dir="${tools.dir}/target/classes"/>
             <jsf.javac srcdir="${tools.dir}/src/main/java"
-                   destdir="${tools.dir}/build/classes">
+                   destdir="${tools.dir}/target/classes">
                 <classpath>
-                    <path refid="compile.classpath"/>  
+                    <path refid="compile.classpath"/>
                     <path refid="apache.commons.classpath"/>
                 </classpath>
             </jsf.javac>
             <taskdef name="generateComponents"
                      classname="com.sun.faces.ant.ComponentGenTask">
                 <classpath>
-                    <pathelement location="${tools.dir}/build/classes"/>
+                    <pathelement location="${tools.dir}/target/classes"/>
                 </classpath>
             </taskdef>
             <generateComponents
@@ -501,7 +503,7 @@
                 <classpath>
                     <path refid="compile.classpath"/>
                     <pathelement location="${jsf-api-intermediate.jar}"/>
-                    <pathelement location="${tools.dir}/build/classes"/>
+                    <pathelement location="${tools.dir}/target/classes"/>
                 </classpath>
                 <sysproperty key="java.endorsed.dirs" value="${endorsed.dirs}"/>
             </generateComponents>
@@ -550,17 +552,17 @@
                 <sysproperty key="port" value="@{custom.port}"/>
                 <sysproperty key="context.path" value="@{context-path}"/>
                 <sysproperty key="explodedWarDir" value="@{explodedWarDir}"/>
-                <sysproperty key="java.util.logging.config.file" 
+                <sysproperty key="java.util.logging.config.file"
                              value="@{logging.config.file}"/>
-                <sysproperty key="force.no.cluster" 
+                <sysproperty key="force.no.cluster"
                              value="@{force.no.cluster}"/>
                 <sysproperty key="container" value="${container.name}" />
                 <sysproperty key="instance.numbers" value="@{instance.numbers}" />
-                <sysproperty key="SimpleTesterTestCase.dumpText" 
+                <sysproperty key="SimpleTesterTestCase.dumpText"
                              value="${SimpleTesterTestCase.dumpText}" />
                 <custom-sysproperties/>
-                <test name="com.sun.faces.htmlunit.SimpleTesterTestCase" 
-                      haltonfailure="yes" 
+                <test name="com.sun.faces.htmlunit.SimpleTesterTestCase"
+                      haltonfailure="yes"
                       todir="@{test-results-dir}"
                       outfile="TEST-${testname}">
                     <formatter type="xml"/>
@@ -593,7 +595,7 @@
               resultproperty="svninfo.result"
                   executable="${svn.cmd}" outputproperty="svninfo.out">
           <arg line="info"/>
-          
+
         </exec>
         <exec osfamily="windows" dir="${jsf.build.home}" executable="${svn.cmd}"
               resultproperty="svninfo.result"
@@ -616,7 +618,7 @@
                            input="${svninfo.out}"
                            regexp="\s+"
                            replace=" " />
-            
+
             <propertyregex property="svn.revision.url"
                            input="${svninfo.to.process}"
                            select="\2@\6">
@@ -711,7 +713,7 @@
             </if>
     </target>
 
-    <target name="container.deploy.with.test.dependencies" 
+    <target name="container.deploy.with.test.dependencies"
             depends="container.deploy,container.deploy.test.dependencies" />
     <import file="${jsf.build.home}/common/ant/${container.name}/container.xml"/>
 </project>
