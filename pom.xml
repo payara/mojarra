@@ -52,97 +52,10 @@
         <!-- must be version 3.2.5 -->
         <mvn.home></mvn.home>
         <!-- must be version 1.6 -->
-        <jdk.home>/usr/lib/jvm/jdk1.6.0</jdk.home>
+        <jdk6.home>/usr/lib/jvm/jdk1.6.0</jdk6.home>
+        <!-- must be version 1.8 -->
+        <jdk8.home>/usr/lib/jvm/jdk1.8.0</jdk8.home>
     </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-all</artifactId>
-            <version>1.6.9</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>javax.el-api</artifactId>
-            <version>2.2.1</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>3.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>javax.servlet.jsp-api</artifactId>
-            <version>2.2.1</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.annotation</groupId>
-            <artifactId>jsr250-api</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-            <version>1.0.0.GA</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.inject</groupId>
-            <artifactId>javax.inject</artifactId>
-            <version>1</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet.jsp.jstl</groupId>
-            <artifactId>jstl-api</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-web-api</artifactId>
-            <version>6.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.el</groupId>
-            <artifactId>el-ri</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
-            <version>1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.faces</groupId>
-            <artifactId>jsf-spi</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
-            <version>1.6.1</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-digester</groupId>
-            <artifactId>commons-digester</artifactId>
-            <version>1.5</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-            <version>1.0.4</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-collections</groupId>
-            <artifactId>commons-collections</artifactId>
-            <version>2.1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>el-api</artifactId>
-            <version>1.0</version>
-        </dependency>
-    </dependencies>
-
 
     <build>
         <plugins>
@@ -152,14 +65,46 @@
                 <version>3.0.0</version>
                 <configuration>
                     <environmentVariables>
-                        <JAVA_HOME>${jdk.home}</JAVA_HOME>
-                        <PATH>${mvn.home}/bin:${env.PATH}</PATH>
+                        <MAVEN_OPTS>-Xms1g -Xmx2g -Xss768k</MAVEN_OPTS>
+                        <MAVEN_SKIP_RC>true</MAVEN_SKIP_RC>
+                        <M2_HOME>${mvn.home}</M2_HOME>
+                        <PATH>${mvn.home}/bin:${ant.home}/bin:${env.PATH}</PATH>
                     </environmentVariables>
                 </configuration>
                 <executions>
                     <execution>
-                        <id>build-ant-jsf-tools</id>
-                        <phase>package</phase>
+                        <id>collect-additional-dependencies</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>${mvn.home}/bin/mvn</executable>
+                            <commandlineArgs>-f ./pom-dependencies.xml dependency:go-offline clean install</commandlineArgs>
+                            <environmentVariables>
+                                <JAVA_HOME>${jdk8.home}</JAVA_HOME>
+                            </environmentVariables>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>collect-jsf-tools-dependencies</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <workingDirectory>${basedir}/jsf-tools</workingDirectory>
+                            <executable>${mvn.home}/bin/mvn</executable>
+                            <!-- does not download maven transitives -->
+                            <commandlineArgs>dependency:go-offline</commandlineArgs>
+                            <environmentVariables>
+                                <JAVA_HOME>${jdk8.home}</JAVA_HOME>
+                            </environmentVariables>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>build-jsf-tools</id>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
@@ -167,28 +112,41 @@
                             <workingDirectory>${basedir}/jsf-tools</workingDirectory>
                             <executable>${mvn.home}/bin/mvn</executable>
                             <commandlineArgs>clean install</commandlineArgs>
+                            <environmentVariables>
+                                <JAVA_HOME>${jdk6.home}</JAVA_HOME>
+                            </environmentVariables>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>build-mojarra</id>
-                        <phase>package</phase>
+                        <id>execute-ant-with-jdk8-to-collect-dependencies</id>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
                         <configuration>
                             <executable>${ant.home}/bin/ant</executable>
-                            <commandlineArgs>clean main</commandlineArgs>
+                            <commandlineArgs>main -Dmaven.m2.settings=${basedir}/settings.xml</commandlineArgs>
+                            <environmentVariables>
+                                <JAVA_HOME>${jdk8.home}</JAVA_HOME>
+                            </environmentVariables>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>execute-ant-with-jdk6</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>${ant.home}/bin/ant</executable>
+                            <commandlineArgs>clean main -Dmaven.m2.settings=${basedir}/settings.xml</commandlineArgs>
+                            <environmentVariables>
+                                <JAVA_HOME>${jdk6.home}</JAVA_HOME>
+                                <MAVEN_OPTS>-Xms1g -Xmx2g -Xss768k -XX:MaxPermSize=1g</MAVEN_OPTS>
+                            </environmentVariables>
                         </configuration>
                     </execution>
                 </executions>
-                <dependencies>
-                    <!-- Ugly hack to get both el-api versions to the local maven repository cache -->
-                    <dependency>
-                        <groupId>javax.el</groupId>
-                        <artifactId>el-api</artifactId>
-                        <version>2.2</version>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
     </build>

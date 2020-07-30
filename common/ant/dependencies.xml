@@ -43,7 +43,7 @@
 
 <project name="JSF Dependencies" basedir="." xmlns:artifact="antlib:org.apache.maven.artifact.ant">
 
-    <!-- 
+    <!--
         Current Dependencies
            HtmlUnit 2.4
            Cactus 1.3-1.7.1
@@ -84,7 +84,7 @@
     <property name="maven.repository.importer.version" value="1.2"/>
     <property name="yuicompressor.version" value="2.4.8"/>
 
-    <property name="central.maven2" value="http://repo1.maven.org/maven2" />
+    <property name="central.maven2" value="https://repo1.maven.org/maven2" />
     <property name="redhat.maven2" value="https://repository.jboss.org/nexus/content/repositories/thirdparty-releases"/>
     <!--<property name="maven2.mirror" value="http://mirrors.ibiblio.org/pub/mirrors/maven2"/>-->
     <property name="maven2.mirror" value="http://repo.exist.com/maven2/"/>
@@ -144,7 +144,7 @@
     <property name="gf-ant.jar"     value="${dependency.jar.dir}/ant-tasks.jar"/>
 
     <!--  source build properties -->
-    
+
     <property name="commons.logging.url" value="http://svn.apache.org/repos/asf/commons/proper/logging/tags/LOGGING_1_0_4/"/>
     <property name="commons.collections.url" value="http://svn.apache.org/repos/asf/commons/proper/collections/tags/COLLECTIONS_2_1/"/>
     <property name="commons.beanutils.url" value="http://svn.apache.org/repos/asf/commons/proper/beanutils/tags/BEANUTILS_1_6_1/"/>
@@ -193,7 +193,7 @@
                      usetimestamp="true"/>
             </then>
         </if>
-        
+
         <!-- JUNIT -->
         <if>
             <and>
@@ -521,7 +521,7 @@
             </then>
         </if>
         -->
-        <!-- Groovy -->       
+        <!-- Groovy -->
         <if>
             <not>
                 <available file="${groovy.jar}" property="ignored"/>
@@ -531,7 +531,7 @@
                      dest="${groovy.jar}"
                      usetimestamp="true"/>
             </then>
-        </if>        
+        </if>
 
         <!-- JSR 330 -->
         <if>

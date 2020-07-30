@@ -43,17 +43,17 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  
+
   <groupId>com.sun.faces</groupId>
   <artifactId>faces-2.2-test-war</artifactId>
   <version>0.2</version>
   <packaging>war</packaging>
   <name>Automated Test Depending on JSF 2.2</name>
-  
+
   <build>
     <finalName>test-${project.artifactId}</finalName>
   </build>
-  
+
   <dependencies>
     <dependency>
       <groupId>javax.faces</groupId>
@@ -80,7 +80,7 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  
+
   <profiles>
     <profile>
       <id>faces-test</id>
@@ -161,7 +161,7 @@
             </plugin>
             <plugin>
               <artifactId>maven-surefire-plugin</artifactId>
-              <version>2.4.3</version>
+              <version>2.12.4</version>
             </plugin>
             <plugin>
               <artifactId>maven-surefire-report-plugin</artifactId>
@@ -192,9 +192,9 @@
               <encoding>${project.build.sourceEncoding}</encoding>
             </configuration>
           </plugin>
-          
+
         </plugins>
-        
+
       </build>
 
       <repositories>
@@ -255,7 +255,7 @@
         <webapp.projectStage>Production</webapp.projectStage>
         <webapp.stateSavingMethod>server</webapp.stateSavingMethod>
       </properties>
-      
+
     </profile>
 
     <profile>
@@ -286,9 +286,9 @@
               </systemPropertyVariables>
             </configuration>
           </plugin>
-          
+
         </plugins>
-        
+
       </build>
 
       <properties>
@@ -296,11 +296,11 @@
         <integration.serverName>localhost</integration.serverName>
         <integration.serverPort>8080</integration.serverPort>
       </properties>
-      
+
     </profile>
 
 
   </profiles>
-    
+
 
 </project>
