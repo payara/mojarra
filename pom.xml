@@ -125,7 +125,10 @@
                         </goals>
                         <configuration>
                             <executable>${ant.home}/bin/ant</executable>
-                            <commandlineArgs>main -Dmaven.m2.settings=${basedir}/settings.xml</commandlineArgs>
+                            <commandlineArgs>
+                            main -Dmaven.m2.settings=${basedir}/settings.xml
+                            -Djsf.build.home=${basedir} -Dcontainer.name=glassfish
+                            </commandlineArgs>
                             <environmentVariables>
                                 <JAVA_HOME>${jdk8.home}</JAVA_HOME>
                             </environmentVariables>
@@ -139,7 +142,10 @@
                         </goals>
                         <configuration>
                             <executable>${ant.home}/bin/ant</executable>
-                            <commandlineArgs>clean main -Dmaven.m2.settings=${basedir}/settings.xml</commandlineArgs>
+                            <commandlineArgs>
+                            clean main -Dmaven.m2.settings=${basedir}/settings.xml
+                            -Djsf.build.home=${basedir} -Dcontainer.name=glassfish
+                            </commandlineArgs>
                             <environmentVariables>
                                 <JAVA_HOME>${jdk6.home}</JAVA_HOME>
                                 <MAVEN_OPTS>-Xms1g -Xmx2g -Xss768k -XX:MaxPermSize=1g</MAVEN_OPTS>
