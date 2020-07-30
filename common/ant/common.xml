@@ -90,6 +90,7 @@
     <property name="api.test.results.dir" value="${api.dir}/testresults"/>
     <property name="regression.test.results.dir"
               value="${regression.test.dir}/build/testresults" />
+    <property name="maven.m2.settings" value="${jsf.build.home}/settings.xml" />
 
     <!-- Name -->
     <property name="api-artifact-id" value="javax.faces-api"/>
@@ -167,7 +168,7 @@
     <artifact:remoteRepository id="ibiblio.repo" url="http://mirrors.ibiblio.org/pub/mirrors/maven2/"/>
     -->
 
-    <artifact:dependencies filesetId="compile.filepath" pathId="compile.path">
+    <artifact:dependencies filesetId="compile.filepath" pathId="compile.path" settingsFile="${maven.m2.settings}">
         <dependency groupId="javax.el" artifactId="javax.el-api" version="2.2.1" scope="provided"/>
         <dependency groupId="javax.servlet" artifactId="javax.servlet-api" version="3.0.1" scope="provided"/>
         <dependency groupId="javax.servlet.jsp" artifactId="javax.servlet.jsp-api" version="2.2.1" scope="provided"/>
@@ -183,20 +184,20 @@
 <!--        <remoteRepository refid="j.n.repo.snapshot"/>-->
     </artifact:dependencies>
 
-    <artifact:dependencies filesetId="cdi.filepath" pathId="cdi.path">
+    <artifact:dependencies filesetId="cdi.filepath" pathId="cdi.path" settingsFile="${maven.m2.settings}">
         <dependency groupId="javax.enterprise" artifactId="cdi-api" version="1.1" scope="provided"/>
         <localRepository refid="local.repository"/>
 <!--        <remoteRepository refid="ibiblio.repo"/>-->
     </artifact:dependencies>
 
-    <artifact:dependencies filesetId="jsf-spi.filepath" pathId="jsf-spi.path">
+    <artifact:dependencies filesetId="jsf-spi.filepath" pathId="jsf-spi.path" settingsFile="${maven.m2.settings}">
         <dependency groupId="com.sun.faces" artifactId="jsf-spi" version="1.0" scope="provided"/>
         <localRepository refid="local.repository"/>
 <!--        <remoteRepository refid="j.n.repo"/>-->
 <!--        <remoteRepository refid="j.n.repo.snapshot"/>-->
     </artifact:dependencies>
 
-    <artifact:dependencies filesetId="commons.filepath" pathId="commons.path">
+    <artifact:dependencies filesetId="commons.filepath" pathId="commons.path" settingsFile="${maven.m2.settings}">
         <dependency groupId="commons-collections" artifactId="commons-collections" version="2.1.1"/>
         <dependency groupId="commons-digester" artifactId="commons-digester" version="1.5"/>
         <dependency groupId="commons-beanutils" artifactId="commons-beanutils" version="1.6.1"/>
@@ -206,7 +207,7 @@
 <!--        <remoteRepository refid="j.n.repo.snapshot"/>-->
     </artifact:dependencies>
 
-    <artifact:dependencies filesetId="servlet25test.filepath" pathId="servlet25test.path">
+    <artifact:dependencies filesetId="servlet25test.filepath" pathId="servlet25test.path" settingsFile="${maven.m2.settings}">
         <dependency groupId="javax.el" artifactId="el-api" version="1.0" scope="provided"/>
         <dependency groupId="javax.servlet" artifactId="servlet-api" version="2.5"/>
         <dependency groupId="javax.servlet.jsp" artifactId="jsp-api" version="2.1" scope="provided"/>
