@@ -95,7 +95,7 @@
                         <configuration>
                             <executable>${mvn.home}/bin/mvn${executableFile.suffix}</executable>
                             <workingDirectory>${basedir}/mvn-dependencies</workingDirectory>
-                            <commandlineArgs>-s ${settings.xml} dependency:go-offline clean install</commandlineArgs>
+                            <commandlineArgs>-s "${settings.xml}" dependency:go-offline clean install</commandlineArgs>
                             <environmentVariables>
                                 <JAVA_HOME>${jdk8.home}</JAVA_HOME>
                             </environmentVariables>
@@ -111,7 +111,7 @@
                             <workingDirectory>${basedir}/jsf-tools</workingDirectory>
                             <executable>${mvn.home}/bin/mvn${executableFile.suffix}</executable>
                             <!-- does not download maven transitives -->
-                            <commandlineArgs>-s ${settings.xml} dependency:go-offline</commandlineArgs>
+                            <commandlineArgs>-s "${settings.xml}" dependency:go-offline</commandlineArgs>
                             <environmentVariables>
                                 <JAVA_HOME>${jdk8.home}</JAVA_HOME>
                             </environmentVariables>
@@ -126,7 +126,7 @@
                         <configuration>
                             <workingDirectory>${basedir}/jsf-tools</workingDirectory>
                             <executable>${mvn.home}/bin/mvn${executableFile.suffix}</executable>
-                            <commandlineArgs>-s ${settings.xml} clean install</commandlineArgs>
+                            <commandlineArgs>-s "${settings.xml}" clean install</commandlineArgs>
                             <environmentVariables>
                                 <JAVA_HOME>${jdk6.home}</JAVA_HOME>
                             </environmentVariables>
@@ -141,8 +141,8 @@
                         <configuration>
                             <executable>${ant.home}/bin/ant${executableFile.suffix}</executable>
                             <commandlineArgs>
-                            main -Dmaven.m2.settings=${settings.xml}
-                            -Djsf.build.home=${basedir} -Dcontainer.name=glassfish
+                            main -Dmaven.m2.settings="${settings.xml}"
+                            -Djsf.build.home="${basedir}" -Dcontainer.name=glassfish
                             </commandlineArgs>
                             <environmentVariables>
                                 <ANT_OPTS>-Xms1g -Xmx2g -Xss768k</ANT_OPTS>
@@ -159,8 +159,8 @@
                         <configuration>
                             <executable>${ant.home}/bin/ant${executableFile.suffix}</executable>
                             <commandlineArgs>
-                            clean main -Dmaven.m2.settings=${settings.xml}
-                            -Djsf.build.home=${basedir} -Dcontainer.name=glassfish
+                            clean main -Dmaven.m2.settings="${settings.xml}"
+                            -Djsf.build.home="${basedir}" -Dcontainer.name=glassfish
                             </commandlineArgs>
                             <environmentVariables>
                                 <JAVA_HOME>${jdk6.home}</JAVA_HOME>
