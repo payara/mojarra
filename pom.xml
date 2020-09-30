@@ -56,6 +56,7 @@
         <!-- must be version 1.8 -->
         <jdk8.home>/usr/lib/jvm/jdk1.8.0</jdk8.home>
         <settings.xml>${project.build.directory}/settings.xml</settings.xml>
+        <maven.repo.local>${basedir}/maven-repo</maven.repo.local>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <executableFile.suffix></executableFile.suffix>
     </properties>
@@ -141,7 +142,7 @@
                         <configuration>
                             <executable>${ant.home}/bin/ant${executableFile.suffix}</executable>
                             <commandlineArgs>
-                            main -Dmaven.m2.settings="${settings.xml}"
+                            main -Dmaven.m2.settings="${settings.xml}" -Dmaven.repo.local="${maven.repo.local}"
                             -Djsf.build.home="${basedir}" -Dcontainer.name=glassfish
                             </commandlineArgs>
                             <environmentVariables>
@@ -159,7 +160,7 @@
                         <configuration>
                             <executable>${ant.home}/bin/ant${executableFile.suffix}</executable>
                             <commandlineArgs>
-                            clean main -Dmaven.m2.settings="${settings.xml}"
+                            clean main -Dmaven.m2.settings="${settings.xml}" -Dmaven.repo.local="${maven.repo.local}"
                             -Djsf.build.home="${basedir}" -Dcontainer.name=glassfish
                             </commandlineArgs>
                             <environmentVariables>
@@ -185,6 +186,7 @@
             <properties>
                 <executableFile.suffix>.bat</executableFile.suffix>
                 <settings.xml>${project.build.directory}\settings.xml</settings.xml>
+                <maven.repo.local>${basedir}\maven-repo</maven.repo.local>
             </properties>
         </profile>
     </profiles>
