@@ -184,6 +184,7 @@
             </activation>
             <properties>
                 <executableFile.suffix>.bat</executableFile.suffix>
+                <settings.xml>${project.build.directory}\settings.xml</settings.xml>
             </properties>
         </profile>
     </profiles>
